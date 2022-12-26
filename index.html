@@ -9,22 +9,31 @@
 </head>
 <body>
     <div id="menu">
-        <p>
-            Export map:
-            <button onclick="downloadMap()">Download</button>
-        </p>
-        <p>
-            Import map:
-            <input type="file" id="map-importer" accept=".json,application/json" />
-        </p>
-        <p>
-            <label for="tileset-chooser">Tileset: </label>
-            <select id="tileset-chooser"></select>
-        </p>
+        <fieldset>
+            <legend>Tileset</legend>
+            <p>
+                <label for="tileset-chooser">Tileset: </label>
+                <select id="tileset-chooser"></select>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Map</legend>
+            <p>
+                Export map:
+                <button onclick="downloadMap()">Download</button>
+            </p>
+            <p>
+                Import map:
+                <input type="file" id="map-importer" accept=".json,application/json" />
+            </p>    
+        </fieldset>
     </div>
+
     <div id="tileset_wrapper">
         <canvas id="tileset"></canvas>
     </div>
+
     <div id="map_wrapper">
         <canvas id="map" width="1280" height="960"></canvas>
     </div>

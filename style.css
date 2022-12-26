@@ -24,3 +24,19 @@ p
 {
     font-weight: bold;
 }
+
+#menu
+{
+    margin-bottom: 10px;
+}
+
+fieldset
+{
+    display: inline-block;
+    vertical-align: top;
+}
+
+legend
+{
+    font-weight: bold;
+}

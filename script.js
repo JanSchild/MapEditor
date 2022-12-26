@@ -116,11 +116,11 @@ function drawMap()
 {
     clearMap();
 
-    layer.forEach((element, map_y) => {
-        if(element === null)
+    layer.forEach((row, map_y) => {
+        if(row === null)
             return;
 
-        element.forEach((tile, map_x) =>
+        row.forEach((tile, map_x) =>
         {
             if(tile === null)
                 return;
