@@ -8,15 +8,23 @@ class Map
     constructor(name, width, height)
     {
         this.name = name;
-        this.width = width;
-        this.height = height;
-    
         this.canvas = document.getElementById('map');
         this.context = this.canvas.getContext('2d');
+
+        this.setSize(width, height);
     
         // (2D array: layer[y][x] = row y, column x)
         // (values are arrays: [tilesetName, tileX, tileY] )
         this.layer = new Array();
+    }
+
+    setSize(width, height)
+    {
+        this.width = width;
+        this.height = height;
+        
+        this.canvas.width = TILE_WIDTH * width;
+        this.canvas.height = TILE_HEIGHT * height;
     }
 
     drawMap()
@@ -93,7 +101,9 @@ class Map
     }
 }
 
-var map = new Map('My first map', 20, 15);
+
+// MAP
+var map = new Map('My first map', 50, 30);
 
 map.canvas.addEventListener("click", mapClicked);
 map.canvas.addEventListener("mousemove", mapClicked);
@@ -109,6 +119,8 @@ function mapClicked(event)
         map.setTile(map_x, map_y, new_tile);        
     }
 }
+
+// TILESET
 
 
 
