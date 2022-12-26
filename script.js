@@ -95,10 +95,10 @@ class Map
 
 var map = new Map('My first map', 20, 15);
 
-map.canvas.addEventListener("click", mapWasClicked);
-map.canvas.addEventListener("mousemove", mapWasClicked);
+map.canvas.addEventListener("click", mapClicked);
+map.canvas.addEventListener("mousemove", mapClicked);
 
-function mapWasClicked(event)
+function mapClicked(event)
 {
     // check if left mouse button is held down
     if(event.which == 1)
