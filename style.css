@@ -1,0 +1,25 @@
+#tileset_wrapper 
+{
+    float: left;
+    vertical-align: top;
+    border: 1px solid black;
+    max-width: 256px;
+    max-height: 512px;
+    overflow: scroll;
+}
+
+#map_wrapper 
+{
+    float: left;
+    vertical-align: top;
+    border: 1px solid black;
+    max-width: 640px;
+    max-height: 480px;
+    overflow: scroll;
+    margin-left: 10px;
+}
+
+p
+{
+    font-weight: bold;
+}
