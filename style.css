@@ -3,20 +3,21 @@
     float: left;
     vertical-align: top;
     border: 1px solid black;
-    max-width: 256px;
-    max-height: 512px;
+    width: 256px;
+    height: 512px;
     overflow: scroll;
+    resize: both;
+    margin-right: 10px;
 }
 
 #map_wrapper 
 {
-    float: left;
+    float: none;
     vertical-align: top;
     border: 1px solid black;
-    max-width: 640px;
-    max-height: 480px;
+    height: 480px;
     overflow: scroll;
-    margin-left: 10px;
+    resize: both;
 }
 
 p
