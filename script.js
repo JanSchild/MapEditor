@@ -17,6 +17,9 @@ class Map
         // (2D array: layer[y][x] = row y, column x)
         // (values are arrays: [tilesetName, tileX, tileY] )
         this.layer = new Array();
+
+        this.canvas.addEventListener("click", this.mapClick);
+        this.canvas.addEventListener("mousemove", this.mapClick);
     }
 
     drawMap()
@@ -104,8 +107,6 @@ class Map
 
 var map = new Map('My first map', 20, 15);
 
-map.canvas.addEventListener("click", map.mapClick);
-map.canvas.addEventListener("mousemove", map.mapClick);
 
 
 
