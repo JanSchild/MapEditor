@@ -1,14 +1,21 @@
 // elements 
 var tileset_canvas = document.getElementById("tileset");
 var tileset_context = tileset_canvas.getContext("2d");
+var tileset_chooser = document.getElementById('tileset-chooser');
 
 var map_canvas = document.getElementById("map");
 var map_context = map_canvas.getContext("2d");
 
 // events
 tileset_canvas.addEventListener("click", selectTile);
+tileset_chooser.addEventListener("change", changeTileset);
 map_canvas.addEventListener("click", mapClick);
 map_canvas.addEventListener("mousemove", mapClick);
+
+function changeTileset(event)
+{
+    showTileset(event.target.value);
+}
 
 // layer
 // (multi-dimensional: layer[y][x] = row y, column x)
@@ -24,6 +31,21 @@ var tileset_images = new Array();
 
 var current_tileset_name = tileset_names[0];
 var current_tileset_image = new Image();
+
+createTilesetDropdown();
+
+function createTilesetDropdown()
+{
+    for(var tileset_name of tileset_names)
+    {
+        var option = document.createElement('option');
+        if(tileset_name == current_tileset_name)
+            option.selected = true;
+        option.value = tileset_name;
+        option.innerHTML = tileset_name;
+        tileset_chooser.appendChild(option);
+    }
+}
 
 loadTilesets();
 
@@ -49,6 +71,7 @@ function tilesetHasLoaded()
 
 function showTileset(tileset_name) 
 {
+    current_tileset_name = tileset_name;
     current_tileset_image = tileset_images[tileset_name];
 
     tileset_canvas.width = current_tileset_image.naturalWidth;
