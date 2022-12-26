@@ -71,41 +71,44 @@ class Map
             draw_x, draw_y, TILE_WIDTH, TILE_HEIGHT);
     }
         
-    mapClick(event) 
+    setTile(x, y, new_tile) 
     {
-        // check if left mouse button is held down
-        if(event.which == 1)
+        if(this.layer[y] == undefined)
         {
-            var map_x = parseInt(event.offsetX / TILE_WIDTH);
-            var map_y = parseInt(event.offsetY / TILE_HEIGHT);
-
-            var new_tile = [current_tileset_name, selected_tile_x, selected_tile_y];
-
-            if(map.layer[map_y] == undefined)
-            {
-                map.layer[map_y] = new Array();
-            }
-
-            if(map.layer[map_y][map_x] != undefined)
-            {
-                if(map.layer[map_y][map_x].join(',') == new_tile.join(','))
-                {
-                    return; // identical tile doesn't need to be redrawn
-                }
-            }
-            
-            map.layer[map_y][map_x] = new_tile;
-
-            map.clearTile(map_x, map_y);
-            map.drawTile(current_tileset_name, selected_tile_x, selected_tile_y, map_x, map_y);
+            this.layer[y] = new Array();
         }
+
+        if(this.layer[y][x] != undefined)
+        {
+            if(this.layer[y][x].join(',') == new_tile.join(','))
+            {
+                return; // identical tile doesn't need to be redrawn
+            }
+        }
+        
+        this.layer[y][x] = new_tile;
+
+        this.clearTile(x, y);
+        this.drawTile(current_tileset_name, selected_tile_x, selected_tile_y, x, y);
     }
 }
 
 var map = new Map('My first map', 20, 15);
 
-map.canvas.addEventListener("click", map.mapClick);
-map.canvas.addEventListener("mousemove", map.mapClick);
+map.canvas.addEventListener("click", mapWasClicked);
+map.canvas.addEventListener("mousemove", mapWasClicked);
+
+function mapWasClicked(event)
+{
+    // check if left mouse button is held down
+    if(event.which == 1)
+    {
+        var map_x = parseInt(event.offsetX / TILE_WIDTH);
+        var map_y = parseInt(event.offsetY / TILE_HEIGHT);
+        var new_tile = [current_tileset_name, selected_tile_x, selected_tile_y];
+        map.setTile(map_x, map_y, new_tile);        
+    }
+}
 
 
 
