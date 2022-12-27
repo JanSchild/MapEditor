@@ -11,7 +11,6 @@ function mapClicked(event)
     {
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
-        // var new_tile = [current_tileset_name, Tileset.selectedX, Tileset.selectedY];
         var new_tile = new Tile(current_tileset_name, Tileset.selectedX, Tileset.selectedY);
 
         // flood tool 

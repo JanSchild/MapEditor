@@ -5,11 +5,12 @@ class Tileset
         this.filename = filename;
         this.name = name;
         this.image = new Image();
-        this.current = Tileset.filenames[0];
     }
-
+    
     static filenames = ['tilesets/floor.png', 'tilesets/forest.png', 'tilesets/forest_dead.png'];
     static loadedFiles = new Array();
+    
+    static current = Tileset.filenames[0];
 
     static images = new Array();
 
@@ -22,6 +23,8 @@ class Tileset
     static canvas = document.getElementById('tileset');
     static context = Tileset.canvas.getContext('2d');
     static chooser = document.getElementById('tileset-chooser');
+
+    static currentTile() { return new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY ) }
 
     static draw()
     {
