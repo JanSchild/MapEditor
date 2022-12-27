@@ -20,12 +20,28 @@
         <fieldset>
             <legend>Map</legend>
             <p>
-                Export map:
-                <button onclick="downloadMap()">Download</button>
+                <label for="map-name">Name:</label>
+                <input type="text" id="map-name" />
             </p>
             <p>
-                Import map:
-                <input type="file" id="map-importer" accept=".json,application/json" />
+                <label for="map-width">Width:</label>
+                <input type="text" id="map-width" />
+            </p>   
+            <p>
+                <label for="map-height">Height:</label>
+                <input type="text" id="map-height" />
+            </p>   
+        </fieldset>
+
+        <fieldset>
+            <legend>File</legend>
+            <p>
+                <label for="map-download">Export map:</label>
+                <button id="map-download" onclick="downloadMap()">Download</button>
+            </p>
+            <p>
+                <label for="map-importer">Import map:</label>
+                <input id="map-importer" type="file" accept=".json,application/json" />
             </p>    
         </fieldset>
     </div>
