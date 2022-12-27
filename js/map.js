@@ -54,7 +54,7 @@ class Map
 
     drawMap()
     {
-        this.clearMap();
+        this.clearCanvas();
 
         this.layer.forEach((row, map_y) => 
         {
@@ -80,7 +80,7 @@ class Map
         });
     }
 
-    clearMap()
+    clearCanvas()
     {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
