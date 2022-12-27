@@ -1,5 +1,8 @@
 class Map
 {
+    static maxWidth = 1000;
+    static maxHeight = 100;
+    
     constructor(name, width, height)
     {
         this.name = name;
@@ -35,6 +38,9 @@ class Map
                 return;
             }
 
+            if(newValue > Map.maxWidth)
+                newValue = Map.maxWidth;
+
             if(newValue > 0)
                 this.setSize(newValue, this.height);
         });
@@ -48,6 +54,9 @@ class Map
                 this.mapHeightInput.value = this.height;
                 return;
             }
+
+            if(newValue > Map.maxHeight)
+                newValue = Map.maxHeight;
 
             if(newValue > 0)
                 this.setSize(this.width, newValue);
