@@ -80,7 +80,7 @@ class Tileset
             image.addEventListener("load", (event) =>
             {
                 Tileset.loadedFiles.push(event.target.src);
-                if(Tileset.loadedFiles.length === 1)
+                if(event.target.src.includes(current_tileset_name))
                 {
                     Tileset.show(current_tileset_name);
                 }
