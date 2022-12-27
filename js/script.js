@@ -26,53 +26,29 @@ var current_tileset_name = Tileset.filenames[0];
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();
 
-// SETTINGS
+// FUNCTIONS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var map =
-// {
-//     name: "A little grass",
-//     width: 20,
-//     height: 20,
-//     layers:
-//     [
-//         [0,44,4,5,3,23,4,5,6],
-//         [3,34,5,45,3,5,66,5453,43]
-//     ]
-// };
-
-
-function exportJSON(data) 
+function exportJSON(data, filename) 
 {
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], 
-        { type: "application/json" }));
-    a.setAttribute("download", "map.json");
+        { type: 'application/json' }));
+    a.setAttribute('download', filename);
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
 }
 
-
 function downloadMap()
 {
-    exportJSON(map.layer);
+    var exportData =
+    {
+        name: map.name,
+        width: map.width,
+        height: map.height,
+        layer: map.layer
+    };
+    exportJSON(exportData, 'map.json');
 }
 
 function importMap(event)
@@ -83,7 +59,13 @@ function importMap(event)
         var file = fileList[0];
         var reader = new FileReader();
         reader.readAsText(file);
-        reader.onload = () => { map.layer = JSON.parse(reader.result); map.drawMap(); };
+        reader.onload = () => 
+        { 
+            var importedMap = JSON.parse(reader.result);
+            map = new Map(importedMap.name, importedMap.width, importedMap.height);
+            map.layer = importedMap.layer;
+            map.setSize(importedMap.width, importedMap.height);
+        }
     }
 }
 
