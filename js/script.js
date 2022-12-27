@@ -26,7 +26,7 @@ var current_tileset_name = Tileset.filenames[0];
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();
 
-
+// SETTINGS
 
 
 

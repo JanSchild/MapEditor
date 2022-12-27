@@ -3,14 +3,42 @@ class Map
     constructor(name, width, height)
     {
         this.name = name;
+        this.width = width;
+        this.height = height;
+        
+        this.mapNameInput = document.getElementById('map-name');
+        this.mapWidthInput = document.getElementById('map-width');
+        this.mapHeightInput = document.getElementById('map-height');
+
         this.canvas = document.getElementById('map');
         this.context = this.canvas.getContext('2d');
 
-        this.setSize(width, height);
-    
         // (2D array: layer[y][x] = row y, column x)
         // (values are arrays: [tilesetName, tileX, tileY] )
         this.layer = new Array();
+
+        this.setSize(width, height);
+
+        this.mapNameInput.value = this.name;
+        this.mapNameInput.addEventListener('change', (event) =>
+        {
+            this.name = event.target.value;
+        });
+
+        this.mapWidthInput.value = this.width;
+        this.mapWidthInput.addEventListener('change', (event) =>
+        {
+            this.width = event.target.value;
+            this.setSize(this.width, this.height);
+        });
+
+        this.mapHeightInput.value = this.height;
+        this.mapHeightInput.addEventListener('change', (event) =>
+        {
+            this.height = event.target.value;
+            this.setSize(this.width, this.height);
+        });
+
     }
 
     setSize(width, height)
@@ -20,6 +48,8 @@ class Map
         
         this.canvas.width = Tileset.tileWidth * width;
         this.canvas.height = Tileset.tileHeight * height;
+
+        this.drawMap();
     }
 
     drawMap()
@@ -31,9 +61,15 @@ class Map
             if(row === null)
                 return;
 
+            if(map_y > this.height)
+                return;
+
             row.forEach((tile, map_x) =>
             {
                 if(tile === null)
+                    return;
+
+                if(map_x > this.width)
                     return;
 
                 var tileset_name = tile[0];
