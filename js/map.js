@@ -128,4 +128,9 @@ class Map
             });
         });
     }
+
+    flood(startX, startY, newTile)
+    {
+        console.log("FLOOD!");
+    }
 }

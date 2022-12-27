@@ -12,6 +12,14 @@ function mapClicked(event)
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
         var new_tile = [current_tileset_name, Tileset.selectedX, Tileset.selectedY];
+
+        // flood tool 
+        if(event.altKey)
+        {
+            map.flood(map_x, map_y, new_tile);
+            return;
+        }
+        // single tile
         map.setTile(map_x, map_y, new_tile);        
     }
 }
