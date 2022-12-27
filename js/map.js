@@ -28,15 +28,13 @@ class Map
         this.mapWidthInput.value = this.width;
         this.mapWidthInput.addEventListener('change', (event) =>
         {
-            this.width = event.target.value;
-            this.setSize(this.width, this.height);
+            this.setSize(event.target.value, this.height);
         });
 
         this.mapHeightInput.value = this.height;
         this.mapHeightInput.addEventListener('change', (event) =>
         {
-            this.height = event.target.value;
-            this.setSize(this.width, this.height);
+            this.setSize(this.width, event.target.value);
         });
 
     }
