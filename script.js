@@ -1,7 +1,3 @@
-// CONSTANTS
-const TILE_WIDTH = 32, TILE_HEIGHT = 32;
-const TILESET_NAMES = ["tilesets/floor.png", "tilesets/forest.png", "tilesets/forest_dead.png"];
-
 // CLASSES
 class Map
 {
@@ -23,8 +19,8 @@ class Map
         this.width = width;
         this.height = height;
         
-        this.canvas.width = TILE_WIDTH * width;
-        this.canvas.height = TILE_HEIGHT * height;
+        this.canvas.width = Tileset.tileWidth * width;
+        this.canvas.height = Tileset.tileHeight * height;
     }
 
     drawMap()
@@ -56,27 +52,27 @@ class Map
 
     clearTile(x, y)
     {
-        this.context.clearRect(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
+        this.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
     }
 
     drawTile(tileset_name, tile_x, tile_y, map_x, map_y)
     {
-        if(!TILESET_NAMES.includes(tileset_name))
+        if(!Tileset.filenames.includes(tileset_name))
         {
             console.error(`${tileset_name} not found.`);
             return;
         }
 
-        var tileset_image = tileset_images[tileset_name];
+        var tileset_image = Tileset.images[tileset_name];
 
-        var draw_x = map_x * TILE_WIDTH;
-        var draw_y = map_y * TILE_HEIGHT;
+        var draw_x = map_x * Tileset.tileWidth;
+        var draw_y = map_y * Tileset.tileHeight;
         
-        var source_x = tile_x * TILE_WIDTH;
-        var source_y = tile_y * TILE_HEIGHT;
+        var source_x = tile_x * Tileset.tileWidth;
+        var source_y = tile_y * Tileset.tileHeight;
 
-        this.context.drawImage(tileset_image, source_x, source_y, TILE_WIDTH, TILE_HEIGHT, 
-            draw_x, draw_y, TILE_WIDTH, TILE_HEIGHT);
+        this.context.drawImage(tileset_image, source_x, source_y, Tileset.tileWidth, Tileset.tileHeight, 
+            draw_x, draw_y, Tileset.tileWidth, Tileset.tileHeight);
     }
         
     setTile(x, y, new_tile) 
@@ -97,9 +93,116 @@ class Map
         this.layer[y][x] = new_tile;
 
         this.clearTile(x, y);
-        this.drawTile(current_tileset_name, selected_tile_x, selected_tile_y, x, y);
+        this.drawTile(current_tileset_name, Tileset.selectedX, Tileset.selectedY, x, y);
     }
 }
+
+
+class Tileset
+{
+    constructor(filename, name)
+    {
+        this.filename = filename;
+        this.name = name;
+        this.image = new Image();
+        this.current = Tileset.filenames[0];
+    }
+
+    static filenames = ['tilesets/floor.png', 'tilesets/forest.png', 'tilesets/forest_dead.png'];
+    static loadedFiles = new Array();
+
+    static images = new Array();
+
+    static tileWidth = 32;
+    static tileHeight = 32;
+
+    static selectedX = 0;
+    static selectedY = 0;    
+
+    static canvas = document.getElementById('tileset');
+    static context = Tileset.canvas.getContext('2d');
+    static chooser = document.getElementById('tileset-chooser');
+
+    static generateDropdownMenu()
+    {
+        for(var tileset_name of Tileset.filenames)
+        {
+            var option = document.createElement('option');
+            if(tileset_name == current_tileset_name)
+                option.selected = true;
+            option.value = tileset_name;
+            option.innerHTML = tileset_name;
+            Tileset.chooser.appendChild(option);
+        }
+    }
+
+    static loadTilesets()
+    {
+        for(var filename of Tileset.filenames)
+        {
+            var image = new Image();
+            image.src = filename;
+            image.addEventListener("load", (event) =>
+            {
+                Tileset.loadedFiles.push(event.target.src);
+                if(Tileset.loadedFiles.length === 1)
+                {
+                    Tileset.show(current_tileset_name);
+                }
+            });
+            Tileset.images[filename] = image;
+        }
+    }
+
+    static show(filename) 
+    {
+        current_tileset_name = filename;
+        Tileset.image = Tileset.images[filename];
+    
+        Tileset.canvas.width = Tileset.image.naturalWidth;
+        Tileset.canvas.height = Tileset.image.naturalHeight;
+    
+        Tileset.selectedX = 0;
+        Tileset.selectedY = 0;
+        
+        Tileset.draw();
+        Tileset.drawSelector();
+    }
+
+    static change(event)
+    {
+        Tileset.show(event.target.value);
+    }
+
+    static draw()
+    {
+        Tileset.context.drawImage(Tileset.image, 0, 0);
+    }
+
+    static selectTile(event)
+    {
+        Tileset.context.clearRect(0, 0, Tileset.canvas.width, Tileset.canvas.height);
+
+        Tileset.draw();
+
+        Tileset.selectedX = parseInt(event.offsetX / Tileset.tileWidth);
+        Tileset.selectedY = parseInt(event.offsetY / Tileset.tileHeight);
+
+        Tileset.drawSelector();
+    }
+
+    static drawSelector()
+    {
+        Tileset.context.beginPath();
+        Tileset.context.rect(Tileset.selectedX * Tileset.tileWidth, 
+                                Tileset.selectedY * Tileset.tileHeight, 
+                                Tileset.tileWidth, Tileset.tileHeight);
+        Tileset.context.closePath();
+        Tileset.context.strokeStyle = "black";
+        Tileset.context.stroke();
+    }
+}
+
 
 
 // MAP
@@ -113,117 +216,28 @@ function mapClicked(event)
     // check if left mouse button is held down
     if(event.which == 1)
     {
-        var map_x = parseInt(event.offsetX / TILE_WIDTH);
-        var map_y = parseInt(event.offsetY / TILE_HEIGHT);
-        var new_tile = [current_tileset_name, selected_tile_x, selected_tile_y];
+        var map_x = parseInt(event.offsetX / Tileset.tileWidth);
+        var map_y = parseInt(event.offsetY / Tileset.tileHeight);
+        var new_tile = [current_tileset_name, Tileset.selectedX, Tileset.selectedY];
         map.setTile(map_x, map_y, new_tile);        
     }
 }
 
+
 // TILESET
+Tileset.canvas.addEventListener("click", Tileset.selectTile);
+Tileset.chooser.addEventListener("change", Tileset.change);
+
+var current_tileset_name = Tileset.filenames[0];
+
+Tileset.generateDropdownMenu();
+Tileset.loadTilesets();
 
 
 
-// elements 
-var tileset_canvas = document.getElementById("tileset");
-var tileset_context = tileset_canvas.getContext("2d");
-var tileset_chooser = document.getElementById('tileset-chooser');
-
-// events
-tileset_canvas.addEventListener("click", selectTile);
-tileset_chooser.addEventListener("change", changeTileset);
-
-function changeTileset(event)
-{
-    showTileset(event.target.value);
-}
 
 
-// tilesets
-var selected_tile_x = 0, selected_tile_y = 0, tileset_load_counter = 0;
 
-var tileset_images = new Array();
-
-var current_tileset_name = TILESET_NAMES[0];
-var current_tileset_image = new Image();
-
-createTilesetDropdown();
-
-function createTilesetDropdown()
-{
-    for(var tileset_name of TILESET_NAMES)
-    {
-        var option = document.createElement('option');
-        if(tileset_name == current_tileset_name)
-            option.selected = true;
-        option.value = tileset_name;
-        option.innerHTML = tileset_name;
-        tileset_chooser.appendChild(option);
-    }
-}
-
-loadTilesets();
-
-function loadTilesets()
-{
-    for(var tileset_name of TILESET_NAMES)
-    {
-        var image = new Image();
-        image.src = tileset_name;
-        image.addEventListener("load", tilesetHasLoaded);
-        tileset_images[tileset_name] = image;
-    }
-}
-
-function tilesetHasLoaded()
-{
-    tileset_load_counter++;
-    if(tileset_load_counter == 1)
-    {
-        showTileset(current_tileset_name);
-    }
-}
-
-function showTileset(tileset_name) 
-{
-    current_tileset_name = tileset_name;
-    current_tileset_image = tileset_images[tileset_name];
-
-    tileset_canvas.width = current_tileset_image.naturalWidth;
-    tileset_canvas.height = current_tileset_image.naturalHeight;
-
-    selected_tile_x = 0;
-    selected_tile_y = 0;
-    
-    drawTileset();
-    drawSelector();
-}
-
-function drawTileset()
-{
-    tileset_context.drawImage(current_tileset_image, 0, 0);
-}
-
-function selectTile(event)
-{
-    tileset_context.clearRect(0, 0, tileset_canvas.width, tileset_canvas.height);
-
-    drawTileset();
-
-    selected_tile_x = parseInt(event.offsetX / TILE_WIDTH);
-    selected_tile_y = parseInt(event.offsetY / TILE_HEIGHT);
-
-    drawSelector();
-}
-
-function drawSelector()
-{
-    tileset_context.beginPath();
-    tileset_context.rect(selected_tile_x * TILE_WIDTH, selected_tile_y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT);
-    tileset_context.closePath();
-    tileset_context.strokeStyle = "black";
-    tileset_context.stroke();
-}
 
 
 
