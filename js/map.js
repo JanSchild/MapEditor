@@ -41,7 +41,7 @@ class Map
                 return;
             }
 
-            if(newValue > 0) this.setSize(newValue, this.height);
+            this.setSize(newValue, this.height);
         });
 
         this.mapHeightInput.addEventListener('change', (event) =>
@@ -54,7 +54,7 @@ class Map
                 return;
             }
 
-            if(newValue > 0) this.setSize(this.width, newValue);
+            this.setSize(this.width, newValue);
         });
 
     }
