@@ -70,7 +70,7 @@ class Map
 
         if(this.layer[y][x] != undefined)
         {
-            if(this.layer[y][x].join(',') == new_tile.join(','))
+            if(this.layer[y][x].isIdentical(new_tile));
             {
                 console.log('identical');
                 return; // identical tile doesn't need to be redrawn
@@ -81,24 +81,24 @@ class Map
 
         this.layer[y][x] = new_tile;
 
-        this.drawTile(current_tileset_name, Tileset.selectedX, Tileset.selectedY, x, y);
+        this.drawTile(new_tile, x, y);
     }
 
-    drawTile(tileset_name, tile_x, tile_y, map_x, map_y)
+    drawTile(newTile, map_x, map_y)
     {
-        if(!Tileset.filenames.includes(tileset_name))
+        if(!Tileset.filenames.includes(newTile.filename))
         {
-            console.error(`${tileset_name} not found.`);
+            console.error(`${newTile.filename} not found.`);
             return;
         }
 
-        var tileset_image = Tileset.images[tileset_name];
+        var tileset_image = Tileset.images[newTile.filename];
 
         var draw_x = map_x * Tileset.tileWidth;
         var draw_y = map_y * Tileset.tileHeight;
         
-        var source_x = tile_x * Tileset.tileWidth;
-        var source_y = tile_y * Tileset.tileHeight;
+        var source_x = newTile.x * Tileset.tileWidth;
+        var source_y = newTile.y * Tileset.tileHeight;
 
         this.context.drawImage(tileset_image, source_x, source_y, Tileset.tileWidth, Tileset.tileHeight, 
             draw_x, draw_y, Tileset.tileWidth, Tileset.tileHeight);
@@ -124,10 +124,7 @@ class Map
                 if(map_x > this.width)
                     return;
 
-                var tileset_name = tile[0];
-                var tile_x = tile[1];
-                var tile_y = tile[2];
-                this.drawTile(tileset_name, tile_x, tile_y, map_x, map_y);
+                this.drawTile(tile, map_x, map_y);
             });
         });
     }
