@@ -101,9 +101,4 @@ class Tileset
             Tileset.chooser.appendChild(option);
         }
     }
-
-    static compareTiles(tileA, tileB)
-    {
-        return tileA.join(',') === tileB.join(',');
-    }
 }
