@@ -38,11 +38,7 @@ class Map
                 return;
             }
 
-            if(newValue > Map.maxWidth)
-                newValue = Map.maxWidth;
-
-            if(newValue > 0)
-                this.setSize(newValue, this.height);
+            if(newValue > 0) this.setSize(newValue, this.height);
         });
 
         this.mapHeightInput.addEventListener('change', (event) =>
@@ -55,17 +51,16 @@ class Map
                 return;
             }
 
-            if(newValue > Map.maxHeight)
-                newValue = Map.maxHeight;
-
-            if(newValue > 0)
-                this.setSize(this.width, newValue);
+            if(newValue > 0) this.setSize(this.width, newValue);
         });
 
     }
 
     setSize(width, height)
     {
+        if(width > Map.maxWidth) width = Map.maxWidth;
+        if(height > Map.maxHeight) height = Map.maxHeight;
+
         this.width = width;
         this.height = height;
         
@@ -75,8 +70,7 @@ class Map
         this.mapWidthInput.value = width;
         this.mapHeightInput.value = height;
 
-        while(this.layer.length < height)
-            this.layer.push(new Array());
+        while(this.layer.length < height) this.layer.push(new Array());
 
         this.drawMap();
     }
