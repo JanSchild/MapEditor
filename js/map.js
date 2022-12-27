@@ -25,16 +25,18 @@ class Map
             this.name = event.target.value;
         });
 
-        this.mapWidthInput.value = this.width;
         this.mapWidthInput.addEventListener('change', (event) =>
         {
-            this.setSize(event.target.value, this.height);
+            var newValue = parseInt(event.target.value);
+            if(newValue > 0)
+                this.setSize(newValue, this.height);
         });
 
-        this.mapHeightInput.value = this.height;
         this.mapHeightInput.addEventListener('change', (event) =>
         {
-            this.setSize(this.width, event.target.value);
+            var newValue = parseInt(event.target.value);
+            if(newValue > 0)
+                this.setSize(this.width, newValue);
         });
 
     }
@@ -46,6 +48,9 @@ class Map
         
         this.canvas.width = Tileset.tileWidth * width;
         this.canvas.height = Tileset.tileHeight * height;
+
+        this.mapWidthInput.value = width;
+        this.mapHeightInput.value = height;
 
         this.drawMap();
     }
