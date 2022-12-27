@@ -75,6 +75,9 @@ class Map
         this.mapWidthInput.value = width;
         this.mapHeightInput.value = height;
 
+        while(this.layer.length < height)
+            this.layer.push(new Array());
+
         this.drawMap();
     }
 
@@ -91,11 +94,6 @@ class Map
       
     setTile(x, y, new_tile) 
     {
-        if(this.layer[y] == undefined)
-        {
-            this.layer[y] = new Array();
-        }
-
         if(this.layer[y][x] != undefined)
         {
             if(this.layer[y][x].isIdentical(new_tile));
