@@ -1,6 +1,9 @@
 class Map
 {
+    static minWidth = 20;
     static maxWidth = 1000;
+    
+    static minHeight = 15;
     static maxHeight = 100;
     
     constructor(name, width, height)
@@ -58,8 +61,8 @@ class Map
 
     setSize(width, height)
     {
-        if(width > Map.maxWidth) width = Map.maxWidth;
-        if(height > Map.maxHeight) height = Map.maxHeight;
+        width = valueRange(width, Map.minWidth, Map.maxWidth);
+        height = valueRange(height, Map.minHeight, Map.maxHeight);
 
         this.width = width;
         this.height = height;

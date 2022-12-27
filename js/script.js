@@ -79,3 +79,8 @@ function importMap(event)
 
 const fileSelector = document.getElementById("map-importer");
 fileSelector.addEventListener('change', importMap);
+
+function valueRange(value, min, max)
+{
+    return Math.min(Math.max(value, min), max);
+}
