@@ -58,6 +58,7 @@ class Map
     clearTile(x, y)
     {
         this.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
+        this.layer[y][x] = null;
     }
       
     setTile(x, y, new_tile) 
@@ -71,13 +72,15 @@ class Map
         {
             if(this.layer[y][x].join(',') == new_tile.join(','))
             {
+                console.log('identical');
                 return; // identical tile doesn't need to be redrawn
             }
         }
         
+        this.clearTile(x, y);
+
         this.layer[y][x] = new_tile;
 
-        this.clearTile(x, y);
         this.drawTile(current_tileset_name, Tileset.selectedX, Tileset.selectedY, x, y);
     }
 
