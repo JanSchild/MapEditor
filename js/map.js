@@ -28,6 +28,13 @@ class Map
         this.mapWidthInput.addEventListener('change', (event) =>
         {
             var newValue = parseInt(event.target.value);
+
+            if(isNaN(newValue))
+            {
+                this.mapWidthInput.value = this.width;
+                return;
+            }
+
             if(newValue > 0)
                 this.setSize(newValue, this.height);
         });
@@ -35,6 +42,13 @@ class Map
         this.mapHeightInput.addEventListener('change', (event) =>
         {
             var newValue = parseInt(event.target.value);
+
+            if(isNaN(newValue))
+            {
+                this.mapHeightInput.value = this.height;
+                return;
+            }
+
             if(newValue > 0)
                 this.setSize(this.width, newValue);
         });
