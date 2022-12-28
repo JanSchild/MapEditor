@@ -1,8 +1,8 @@
 // MAP
 var map = new Map('My first map', 50, 30);
 
-map.canvas.addEventListener("click", mapClicked);
-map.canvas.addEventListener("mousemove", mapClicked);
+map.canvas.addEventListener('click', mapClicked);
+map.canvas.addEventListener('mousemove', mapClicked);
 
 function mapClicked(event)
 {
@@ -26,8 +26,8 @@ function mapClicked(event)
 
 
 // TILESET
-Tileset.canvas.addEventListener("click", Tileset.selectTile);
-Tileset.chooser.addEventListener("change", Tileset.change);
+Tileset.canvas.addEventListener('click', Tileset.selectTile);
+Tileset.chooser.addEventListener('change', Tileset.change);
 
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();
