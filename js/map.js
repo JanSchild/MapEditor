@@ -124,6 +124,18 @@ class Map
         });
     }
 
+    download()
+    {
+        var exportData =
+        {
+            name: this.name,
+            width: this.width,
+            height: this.height,
+            layer: this.layer
+        };
+        exportJSON(exportData, 'map.json');
+    }
+
     // flood(startX, startY, newTile)
     // {
     //     var x = startX;

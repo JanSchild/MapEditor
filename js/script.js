@@ -45,17 +45,6 @@ function exportJSON(data, filename)
     document.body.removeChild(a);
 }
 
-function downloadMap()
-{
-    var exportData =
-    {
-        name: map.name,
-        width: map.width,
-        height: map.height,
-        layer: map.layer
-    };
-    exportJSON(exportData, 'map.json');
-}
 
 function importMap(event)
 {
