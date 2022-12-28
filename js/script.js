@@ -14,13 +14,13 @@ function mapClicked(event)
         var new_tile = new Tile(current_tileset_name, Tileset.selectedX, Tileset.selectedY);
 
         // flood tool 
-        if(event.altKey)
-        {
-            map.flood(map_x, map_y, new_tile);
-            return;
-        }
+        // if(event.altKey)
+        // {
+        //     map.flood(map_x, map_y, new_tile);
+        //     return;
+        // }
         // single tile
-        map.setTile(map_x, map_y, new_tile);        
+        map.setTile(new_tile, map_x, map_y);        
     }
 }
 

@@ -19,9 +19,7 @@ class Map
         this.canvas = document.getElementById('map');
         this.context = this.canvas.getContext('2d');
 
-        // (2D array: layer[y][x] = row y, column x)
-        // (values are arrays: [tilesetName, tileX, tileY] )
-        this.layer = new Array();
+        this.layer = new Layer(height);
 
         this.setSize(width, height);
 
@@ -73,8 +71,6 @@ class Map
         this.mapWidthInput.value = width;
         this.mapHeightInput.value = height;
 
-        while(this.layer.length < height) this.layer.push(new Array());
-
         this.drawMap();
     }
 
@@ -86,25 +82,22 @@ class Map
     clearTile(x, y)
     {
         this.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
-        this.layer[y][x] = null;
+        this.layer.unsetTile(x, y);
     }
       
-    setTile(x, y, new_tile) 
+    setTile(newTile, x, y) 
     {
-        if(this.layer[y][x] != undefined)
+        if(this.layer.tile(x, y).isIdentical(newTile))
         {
-            if(this.layer[y][x].isIdentical(new_tile));
-            {
-                console.log('identical');
-                return; // identical tile doesn't need to be redrawn
-            }
+            console.log('identical');
+            return; // identical tile doesn't need to be redrawn
         }
         
         this.clearTile(x, y);
 
-        this.layer[y][x] = new_tile;
+        this.layer.setTile(newTile, x, y);
 
-        this.drawTile(new_tile, x, y);
+        this.drawTile(newTile, x, y);
     }
 
     drawTile(newTile, map_x, map_y)
@@ -131,29 +124,32 @@ class Map
     {
         this.clearCanvas();
 
-        this.layer.forEach((row, map_y) => 
+        this.layer.data.forEach((row, map_y) => 
         {
-            if(row === null)
-                return;
-
-            if(map_y > this.height)
-                return;
+            if(map_y >= this.height) return;
 
             row.forEach((tile, map_x) =>
             {
-                if(tile === null)
-                    return;
+                if(tile.isEmpty()) return;
 
-                if(map_x > this.width)
-                    return;
+                if(map_x >= this.width) return;
 
                 this.drawTile(tile, map_x, map_y);
             });
         });
     }
 
-    flood(startX, startY, newTile)
-    {
-        console.log("FLOOD!");
-    }
+    // flood(startX, startY, newTile)
+    // {
+    //     var x = startX;
+    //     var y = startY;
+
+    //     var startTile = this.layer[y][x];
+        
+
+    //     if(y - 1 < 0) return;
+    //     if(y + 1 >= this.height) return;
+    //     if(x - 1 < 0) return;
+    //     if(x + 1 >= this.width) return;
+    // }
 }

@@ -7,9 +7,17 @@ class Tile
         this.y = y;
     }
 
+    isEmpty()
+    {
+        return this.filename == 'empty' || this.filename == '' || this.filename == undefined;
+    }
+
     asString()
     {
-        return this.filename + ',' + this.x + ',' + this.y;
+        if(this.isEmpty())
+            return 'emptyTile';
+        else
+            return this.filename + ',' + this.x + ',' + this.y;
     }
 
     isIdentical(otherTile)
