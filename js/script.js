@@ -11,7 +11,7 @@ function mapClicked(event)
     {
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
-        var new_tile = new Tile(current_tileset_name, Tileset.selectedX, Tileset.selectedY);
+        var new_tile = new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY);
 
         // flood tool 
         // if(event.altKey)
@@ -28,8 +28,6 @@ function mapClicked(event)
 // TILESET
 Tileset.canvas.addEventListener("click", Tileset.selectTile);
 Tileset.chooser.addEventListener("change", Tileset.change);
-
-var current_tileset_name = Tileset.filenames[0];
 
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();

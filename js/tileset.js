@@ -38,7 +38,7 @@ class Tileset
 
     static show(filename) 
     {
-        current_tileset_name = filename;
+        Tileset.current = filename;
         Tileset.image = Tileset.images[filename];
     
         Tileset.canvas.width = Tileset.image.naturalWidth;
@@ -83,9 +83,9 @@ class Tileset
             image.addEventListener("load", (event) =>
             {
                 Tileset.loadedFiles.push(event.target.src);
-                if(event.target.src.includes(current_tileset_name))
+                if(event.target.src.includes(Tileset.current))
                 {
-                    Tileset.show(current_tileset_name);
+                    Tileset.show(Tileset.current);
                 }
             });
             Tileset.images[filename] = image;
@@ -97,7 +97,7 @@ class Tileset
         for(var tileset_name of Tileset.filenames)
         {
             var option = document.createElement('option');
-            if(tileset_name == current_tileset_name)
+            if(tileset_name == Tileset.current)
                 option.selected = true;
             option.value = tileset_name;
             option.innerHTML = tileset_name;
