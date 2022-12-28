@@ -32,26 +32,14 @@ class Map
         this.mapWidthInput.addEventListener('change', (event) =>
         {
             var newValue = parseInt(event.target.value);
-
-            if(isNaN(newValue))
-            {
-                this.mapWidthInput.value = this.width;
-                return;
-            }
-
+            if(isNaN(newValue)) { this.mapWidthInput.value = this.width; return; }
             this.setSize(newValue, this.height);
         });
 
         this.mapHeightInput.addEventListener('change', (event) =>
         {
             var newValue = parseInt(event.target.value);
-
-            if(isNaN(newValue))
-            {
-                this.mapHeightInput.value = this.height;
-                return;
-            }
-
+            if(isNaN(newValue)) { this.mapHeightInput.value = this.height; return; }
             this.setSize(this.width, newValue);
         });
 
@@ -94,9 +82,7 @@ class Map
         }
         
         this.clearTile(x, y);
-
         this.layer.setTile(newTile, x, y);
-
         this.drawTile(newTile, x, y);
     }
 
@@ -131,7 +117,6 @@ class Map
             row.forEach((tile, map_x) =>
             {
                 if(tile.isEmpty()) return;
-
                 if(map_x >= this.width) return;
 
                 this.drawTile(tile, map_x, map_y);
