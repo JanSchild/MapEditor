@@ -12,7 +12,7 @@ class Tile
         return this.filename == 'empty' || this.filename == '' || this.filename == undefined;
     }
 
-    asString()
+    toString()
     {
         if(this.isEmpty())
             return 'emptyTile';
@@ -22,6 +22,6 @@ class Tile
 
     isIdentical(otherTile)
     {
-        return this.asString() === otherTile.asString();
+        return this.toString() === otherTile.asString();
     }
 }

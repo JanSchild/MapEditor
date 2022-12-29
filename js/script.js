@@ -45,7 +45,6 @@ function exportJSON(data, filename)
     document.body.removeChild(a);
 }
 
-
 function importMap(event)
 {
     const fileList = event.target.files;
