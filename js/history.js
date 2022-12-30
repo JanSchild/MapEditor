@@ -16,6 +16,10 @@ class History
         {
             History.next.unshift(lastChange);
             console.log(`Undo last change: ${lastChange}`);
+            console.log(`Type of change: ${lastChange.constructor.name}`);
+
+            if(lastChange.constructor.name == 'TileChangeCollection')
+                lastChange.changeToOldTiles();
         }
     }
 
@@ -26,6 +30,10 @@ class History
         {
             History.previous.push(nextChange);
             console.log(`Redo next change: ${nextChange}`);
+            console.log(`Type of change: ${nextChange.constructor.name}`);
+
+            if(nextChange.constructor.name == 'TileChangeCollection')
+                nextChange.changeToNewTiles();
         }
     }
 }
@@ -38,5 +46,34 @@ class TileChange
         this.mapY = mapY;
         this.oldTile = oldTile;
         this.newTile = newTile;
+    }
+}
+
+class TileChangeCollection
+{
+    constructor()
+    {
+        this.tileChanges = new Array();
+    }
+
+    add(tileChange)
+    {
+        this.tileChanges.push(tileChange);
+    }
+
+    changeToNewTiles()
+    {
+        this.tileChanges.foreach((tileChange) =>
+        {
+            map.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY);
+        });
+    }
+
+    changeToOldTiles()
+    {
+        this.tileChanges.foreach((tileChange) =>
+        {
+            map.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY);
+        });
     }
 }
