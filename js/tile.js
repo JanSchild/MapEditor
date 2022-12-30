@@ -1,5 +1,8 @@
 class Tile
 {
+    // filename of tileset
+    // x position in tileset
+    // y position in tileset
     constructor(filename, x, y)
     {
         this.filename = filename;
@@ -22,6 +25,6 @@ class Tile
 
     isIdentical(otherTile)
     {
-        return this.toString() === otherTile.asString();
+        return this.toString() === otherTile.toString();
     }
 }

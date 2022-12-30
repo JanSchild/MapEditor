@@ -75,11 +75,8 @@ class Map
       
     setTile(newTile, x, y) 
     {
-        if(this.layer.tile(x, y).isIdentical(newTile))
-        {
-            console.log('identical');
-            return; // identical tile doesn't need to be redrawn
-        }
+        if(!this.coordinateExists(x, y)) return;
+        if(this.layer.tile(x, y).isIdentical(newTile)) return;
         
         this.clearTile(x, y);
         this.layer.setTile(newTile, x, y);
@@ -136,17 +133,61 @@ class Map
         exportJSON(exportData, 'map.json');
     }
 
-    // flood(startX, startY, newTile)
-    // {
-    //     var x = startX;
-    //     var y = startY;
+    coordinateExists(x, y)
+    {
+        if(x < 0) return false;
+        if(x >= this.width) return false;
+        if(y < 0) return false;
+        if(y >= this.height) return false;
 
-    //     var startTile = this.layer[y][x];
+        return true;
+    }
+
+    flood(newTile, startX, startY)
+    {
+        var startTile = this.layer.tile(startX, startY);
+
+        if(newTile.isIdentical(startTile)) return;
         
+        this.setTile(newTile, startX, startY);
+        this.newFloodCenter(newTile, startTile, startX, startY);
+    }
 
-    //     if(y - 1 < 0) return;
-    //     if(y + 1 >= this.height) return;
-    //     if(x - 1 < 0) return;
-    //     if(x + 1 >= this.width) return;
-    // }
+    newFloodCenter(newTile, startTile, centerX, centerY)
+    {
+        var x, y;
+
+        // top
+        x = centerX;
+        y = centerY - 1;
+        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
+        {
+            this.setTile(newTile, x, y);
+            this.newFloodCenter(newTile, startTile, x, y);
+        }
+        // bottom
+        x = centerX;
+        y = centerY + 1;
+        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
+        {
+            this.setTile(newTile, x, y);
+            this.newFloodCenter(newTile, startTile, x, y);
+        }
+        // left
+        x = centerX - 1;
+        y = centerY;
+        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
+        {
+            this.setTile(newTile, x, y);
+            this.newFloodCenter(newTile, startTile, x, y);
+        }
+        // right
+        x = centerX + 1;
+        y = centerY;
+        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
+        {
+            this.setTile(newTile, x, y);
+            this.newFloodCenter(newTile, startTile, x, y);
+        }
+    }
 }

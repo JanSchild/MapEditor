@@ -14,11 +14,11 @@ function mapClicked(event)
         var new_tile = new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY);
 
         // flood tool 
-        // if(event.altKey)
-        // {
-        //     map.flood(map_x, map_y, new_tile);
-        //     return;
-        // }
+        if(event.altKey)
+        {
+            map.flood(new_tile, map_x, map_y);
+            return;
+        }
         // single tile
         map.setTile(new_tile, map_x, map_y);        
     }
