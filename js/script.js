@@ -57,7 +57,7 @@ window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
 window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
 
 // UTILITY FUNCTIONS
-function valueRange(value, min, max)
+function limitValue(value, min, max)
 {
     return Math.min(Math.max(value, min), max);
 }

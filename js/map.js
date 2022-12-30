@@ -47,8 +47,8 @@ class Map
 
     setSize(width, height)
     {
-        width = valueRange(width, Map.minWidth, Map.maxWidth);
-        height = valueRange(height, Map.minHeight, Map.maxHeight);
+        width = limitValue(width, Map.minWidth, Map.maxWidth);
+        height = limitValue(height, Map.minHeight, Map.maxHeight);
 
         this.width = width;
         this.height = height;
