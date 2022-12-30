@@ -3,6 +3,18 @@ var map = new Map('My first map', 50, 30);
 map.canvas.addEventListener('click', mapClicked);
 map.canvas.addEventListener('mousemove', mapClicked);
 
+document.addEventListener('keydown', (event) =>
+{
+    if(event.code == 'KeyF')
+        map.canvas.style.cursor = 'copy';
+});
+
+document.addEventListener('keyup', (event) =>
+{
+    if(event.code == 'KeyF')
+        map.canvas.style.cursor = 'auto';
+});
+
 function mapClicked(event)
 {
     // check if left mouse button is held down
