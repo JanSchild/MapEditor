@@ -1,6 +1,5 @@
 // MAP
 var map = new Map('My first map', 50, 30);
-
 map.canvas.addEventListener('click', mapClicked);
 map.canvas.addEventListener('mousemove', mapClicked);
 
@@ -14,7 +13,7 @@ function mapClicked(event)
         var new_tile = new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY);
 
         // flood tool 
-        if(event.altKey)
+        if(activeKeys.has('KeyF'))
         {
             map.flood(new_tile, map_x, map_y);
             return;
@@ -24,26 +23,9 @@ function mapClicked(event)
     }
 }
 
-
-// TILESET
-Tileset.canvas.addEventListener('click', Tileset.selectTile);
-Tileset.chooser.addEventListener('change', Tileset.change);
-
-Tileset.generateDropdownMenu();
-Tileset.loadTilesets();
-
-// FUNCTIONS
-
-function exportJSON(data, filename) 
-{
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], 
-        { type: 'application/json' }));
-    a.setAttribute('download', filename);
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
+// MAP IMPORT, EXPORT
+var fileSelector = document.getElementById('map-importer');
+fileSelector.addEventListener('change', importMap);
 
 function importMap(event)
 {
@@ -63,10 +45,30 @@ function importMap(event)
     }
 }
 
-const fileSelector = document.getElementById("map-importer");
-fileSelector.addEventListener('change', importMap);
+// TILESET
+Tileset.generateDropdownMenu();
+Tileset.loadTilesets();
+Tileset.canvas.addEventListener('click', Tileset.selectTile);
+Tileset.chooser.addEventListener('change', Tileset.change);
 
+// KEYBOARD MANAGEMENT
+var activeKeys = new Set();
+window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
+window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
+
+// UTILITY FUNCTIONS
 function valueRange(value, min, max)
 {
     return Math.min(Math.max(value, min), max);
+}
+
+function exportJSON(data, filename) 
+{
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], 
+        { type: 'application/json' }));
+    a.setAttribute('download', filename);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
