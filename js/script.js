@@ -65,8 +65,15 @@ Tileset.chooser.addEventListener('change', Tileset.change);
 
 // KEYBOARD MANAGEMENT
 var activeKeys = new Set();
-window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
+window.addEventListener('keydown', (event) => { activeKeys.add(event.code); console.log(activeKeys) });
 window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
+window.addEventListener('keydown', (event) => 
+{
+    if(event.ctrlKey && event.code == 'KeyZ')
+        console.log('Undo!');
+    if(event.ctrlKey && event.code == 'KeyY')
+        console.log('Redo!');
+});
 
 // UTILITY FUNCTIONS
 function limitValue(value, min, max)
