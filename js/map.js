@@ -160,30 +160,26 @@ class Map
         // top
         x = centerX;
         y = centerY - 1;
-        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
-        {
-            this.setTile(newTile, x, y);
-            this.newFloodCenter(newTile, startTile, x, y);
-        }
+        this.tryFlood(newTile, startTile, x, y);
+
         // bottom
         x = centerX;
         y = centerY + 1;
-        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
-        {
-            this.setTile(newTile, x, y);
-            this.newFloodCenter(newTile, startTile, x, y);
-        }
+        this.tryFlood(newTile, startTile, x, y);
+
         // left
         x = centerX - 1;
         y = centerY;
-        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
-        {
-            this.setTile(newTile, x, y);
-            this.newFloodCenter(newTile, startTile, x, y);
-        }
+        this.tryFlood(newTile, startTile, x, y);
+        
         // right
         x = centerX + 1;
         y = centerY;
+        this.tryFlood(newTile, startTile, x, y);
+    }
+
+    tryFlood(newTile, startTile, x, y)
+    {
         if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
         {
             this.setTile(newTile, x, y);
