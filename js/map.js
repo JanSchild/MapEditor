@@ -150,40 +150,40 @@ class Map
         if(newTile.isIdentical(startTile)) return;
         
         this.setTile(newTile, startX, startY);
-        this.newFloodCenter(newTile, startTile, startX, startY);
+        this.#newFloodCenter(newTile, startTile, startX, startY);
     }
 
-    newFloodCenter(newTile, startTile, centerX, centerY)
+    #newFloodCenter(newTile, startTile, centerX, centerY)
     {
         var x, y;
 
         // top
         x = centerX;
         y = centerY - 1;
-        this.tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(newTile, startTile, x, y);
 
         // bottom
         x = centerX;
         y = centerY + 1;
-        this.tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(newTile, startTile, x, y);
 
         // left
         x = centerX - 1;
         y = centerY;
-        this.tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(newTile, startTile, x, y);
         
         // right
         x = centerX + 1;
         y = centerY;
-        this.tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(newTile, startTile, x, y);
     }
 
-    tryFlood(newTile, startTile, x, y)
+    #tryFlood(newTile, startTile, x, y)
     {
         if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
         {
             this.setTile(newTile, x, y);
-            this.newFloodCenter(newTile, startTile, x, y);
+            this.#newFloodCenter(newTile, startTile, x, y);
         }
     }
 }
