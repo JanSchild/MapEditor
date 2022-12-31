@@ -3,9 +3,9 @@ class History
     static previous = new Array();
     static next = new Array();
 
-    static do(someChange)
+    static add(someChange)
     {
-        var next = new Array();
+        History.next = new Array();
         History.previous.push(someChange);
     }
 
@@ -35,45 +35,5 @@ class History
             if(nextChange.constructor.name == 'TileChangeCollection')
                 nextChange.changeToNewTiles();
         }
-    }
-}
-
-class TileChange
-{
-    constructor(mapX, mapY, oldTile, newTile)
-    {
-        this.mapX = mapX;
-        this.mapY = mapY;
-        this.oldTile = oldTile;
-        this.newTile = newTile;
-    }
-}
-
-class TileChangeCollection
-{
-    constructor()
-    {
-        this.tileChanges = new Array();
-    }
-
-    add(tileChange)
-    {
-        this.tileChanges.push(tileChange);
-    }
-
-    changeToNewTiles()
-    {
-        this.tileChanges.foreach((tileChange) =>
-        {
-            map.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY);
-        });
-    }
-
-    changeToOldTiles()
-    {
-        this.tileChanges.foreach((tileChange) =>
-        {
-            map.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY);
-        });
     }
 }

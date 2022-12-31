@@ -85,6 +85,8 @@ class Map
 
     drawTile(newTile, map_x, map_y)
     {
+        if(newTile.isEmpty()) return;
+        
         if(!Tileset.filenames.includes(newTile.filename))
         {
             console.error(`${newTile.filename} not found.`);

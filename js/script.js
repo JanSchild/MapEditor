@@ -3,18 +3,6 @@ var map = new Map('My first map', 50, 30);
 map.canvas.addEventListener('mousedown', placeTileOnMap);
 map.canvas.addEventListener('mousemove', placeTileOnMap);
 
-document.addEventListener('keydown', (event) =>
-{
-    if(event.code == 'KeyF')
-        map.canvas.style.cursor = 'copy';
-});
-
-document.addEventListener('keyup', (event) =>
-{
-    if(event.code == 'KeyF')
-        map.canvas.style.cursor = 'auto';
-});
-
 function placeTileOnMap(event)
 { 
     // check if left mouse button is held down
@@ -23,6 +11,9 @@ function placeTileOnMap(event)
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
         var new_tile = new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY);
+        var old_tile = map.layer.tile(map_x, map_y);
+
+        if(new_tile.isIdentical(old_tile)) return;
 
         // flood tool 
         if(activeKeys.has('KeyF'))
@@ -31,7 +22,10 @@ function placeTileOnMap(event)
             return;
         }
         // single tile
-        map.setTile(new_tile, map_x, map_y);        
+        map.setTile(new_tile, map_x, map_y);  
+        var changes = new TileChangeCollection();
+        changes.add(new TileChange(map_x, map_y, old_tile, new_tile));
+        History.add(changes);
     }
 }
 
@@ -70,9 +64,20 @@ window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
 window.addEventListener('keydown', (event) => 
 {
     if(event.ctrlKey && event.code == 'KeyZ')
-        console.log('Undo!');
+        History.undo();
     if(event.ctrlKey && event.code == 'KeyY')
-        console.log('Redo!');
+        History.redo();
+});
+window.addEventListener('keydown', (event) =>
+{
+    if(event.code == 'KeyF')
+        map.canvas.style.cursor = 'copy';
+});
+
+window.addEventListener('keyup', (event) =>
+{
+    if(event.code == 'KeyF')
+        map.canvas.style.cursor = 'auto';
 });
 
 // UTILITY FUNCTIONS

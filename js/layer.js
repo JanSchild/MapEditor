@@ -18,7 +18,7 @@ class Layer
 
     tile(x, y)
     {
-        return this.row(y)[x] ?? new Tile('empty', 0, 0);
+        return this.row(y)[x] ?? Tile.emptyTile();
     }
 
     setTile(tile, x, y)

@@ -10,6 +10,13 @@ class Tile
         this.y = y;
     }
 
+    static emptyFilename = null;
+
+    static emptyTile()
+    {
+        return new Tile(Tile.emptyFilename, null, null);
+    }
+
     isEmpty()
     {
         return this.filename == 'empty' || this.filename == '' || this.filename == undefined;
