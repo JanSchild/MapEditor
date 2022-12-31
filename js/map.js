@@ -154,11 +154,11 @@ class Map
         this.setTile(newTile, x, y);
         this.tileChangeCollection = new TileChangeCollection();
         this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
-        this.#newFloodCenter(newTile, startTile, x, y);
+        this.#newFloodCenter(x, y, startTile, newTile);
         History.add(this.tileChangeCollection);
     }
 
-    #newFloodCenter(newTile, startTile, centerX, centerY)
+    #newFloodCenter(centerX, centerY, startTile, newTile)
     {
         var x, y;
 
@@ -189,7 +189,7 @@ class Map
         {
             this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
             this.setTile(newTile, x, y);
-            this.#newFloodCenter(newTile, startTile, x, y);
+            this.#newFloodCenter(x, y, startTile, newTile);
         }
     }
 }
