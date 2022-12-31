@@ -18,12 +18,12 @@ function placeTileOnMap(event)
         // flood tool 
         if(activeKeys.has('KeyF'))
         {
-            map.flood(new_tile, map_x, map_y);
+            map.flood(map_x, map_y, new_tile);
             return;
         }
         // single tile
         map.setTile(new_tile, map_x, map_y);  
-        
+
         var changes = new TileChangeCollection();
         changes.add(new TileChange(map_x, map_y, old_tile, new_tile));
         History.add(changes);

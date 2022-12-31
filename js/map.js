@@ -145,16 +145,16 @@ class Map
         return true;
     }
 
-    flood(newTile, startX, startY)
+    flood(x, y, newTile)
     {
-        var startTile = this.layer.tile(startX, startY);
+        var startTile = this.layer.tile(x, y);
 
         if(newTile.isIdentical(startTile)) return;
         
-        this.setTile(newTile, startX, startY);
+        this.setTile(newTile, x, y);
         this.tileChangeCollection = new TileChangeCollection();
-        this.tileChangeCollection.add(new TileChange(startX, startY, startTile, newTile));
-        this.#newFloodCenter(newTile, startTile, startX, startY);
+        this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+        this.#newFloodCenter(newTile, startTile, x, y);
         History.add(this.tileChangeCollection);
     }
 
