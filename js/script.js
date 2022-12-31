@@ -1,7 +1,7 @@
 // MAP
 var map = new Map('My first map', 50, 30);
-map.canvas.addEventListener('click', mapClicked);
-map.canvas.addEventListener('mousemove', mapClicked);
+map.canvas.addEventListener('mousedown', placeTileOnMap);
+map.canvas.addEventListener('mousemove', placeTileOnMap);
 
 document.addEventListener('keydown', (event) =>
 {
@@ -15,10 +15,10 @@ document.addEventListener('keyup', (event) =>
         map.canvas.style.cursor = 'auto';
 });
 
-function mapClicked(event)
-{
+function placeTileOnMap(event)
+{ 
     // check if left mouse button is held down
-    if(event.which == 1)
+    if(event.buttons == 1)
     {
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
@@ -65,7 +65,7 @@ Tileset.chooser.addEventListener('change', Tileset.change);
 
 // KEYBOARD MANAGEMENT
 var activeKeys = new Set();
-window.addEventListener('keydown', (event) => { activeKeys.add(event.code); console.log(activeKeys) });
+window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
 window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
 window.addEventListener('keydown', (event) => 
 {
