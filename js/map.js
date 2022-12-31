@@ -165,25 +165,25 @@ class Map
         // top
         x = centerX;
         y = centerY - 1;
-        this.#tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(x, y, startTile, newTile);
 
         // bottom
         x = centerX;
         y = centerY + 1;
-        this.#tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(x, y, startTile, newTile);
 
         // left
         x = centerX - 1;
         y = centerY;
-        this.#tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(x, y, startTile, newTile);
         
         // right
         x = centerX + 1;
         y = centerY;
-        this.#tryFlood(newTile, startTile, x, y);
+        this.#tryFlood(x, y, startTile, newTile);
     }
 
-    #tryFlood(newTile, startTile, x, y)
+    #tryFlood(x, y, startTile, newTile)
     {
         if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
         {
