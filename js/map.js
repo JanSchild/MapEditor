@@ -154,7 +154,9 @@ class Map
         this.setTile(newTile, x, y);
         this.tileChangeCollection = new TileChangeCollection();
         this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+        
         this.#newFloodCenter(x, y, startTile, newTile);
+
         History.add(this.tileChangeCollection);
     }
 
