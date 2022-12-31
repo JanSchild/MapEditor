@@ -86,7 +86,7 @@ class Map
     drawTile(newTile, map_x, map_y)
     {
         if(newTile.isEmpty()) return;
-        
+
         if(!Tileset.filenames.includes(newTile.filename))
         {
             console.error(`${newTile.filename} not found.`);
@@ -152,7 +152,10 @@ class Map
         if(newTile.isIdentical(startTile)) return;
         
         this.setTile(newTile, startX, startY);
+        this.tileChangeCollection = new TileChangeCollection();
+        this.tileChangeCollection.add(new TileChange(startX, startY, startTile, newTile));
         this.#newFloodCenter(newTile, startTile, startX, startY);
+        History.add(this.tileChangeCollection);
     }
 
     #newFloodCenter(newTile, startTile, centerX, centerY)
@@ -184,6 +187,7 @@ class Map
     {
         if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
         {
+            this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
             this.setTile(newTile, x, y);
             this.#newFloodCenter(newTile, startTile, x, y);
         }

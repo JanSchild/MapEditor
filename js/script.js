@@ -23,6 +23,7 @@ function placeTileOnMap(event)
         }
         // single tile
         map.setTile(new_tile, map_x, map_y);  
+        
         var changes = new TileChangeCollection();
         changes.add(new TileChange(map_x, map_y, old_tile, new_tile));
         History.add(changes);
