@@ -45,9 +45,8 @@ function importMap(event)
         reader.onload = () => 
         { 
             var importedMap = JSON.parse(reader.result);
-            console.log(importedMap);
             map = new Map(importedMap.name, importedMap.width, importedMap.height);
-            map.layer = importedMap.layer;
+            map.layer.import(importedMap);
             map.setSize(importedMap.width, importedMap.height);
         }
     }
