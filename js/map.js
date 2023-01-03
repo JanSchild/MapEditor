@@ -85,7 +85,7 @@ class Map
 
     drawTile(newTile, map_x, map_y)
     {
-        if(newTile.isEmpty()) return;
+        if(newTile.filename == null) return;
 
         if(!Tileset.filenames.includes(newTile.filename))
         {
@@ -115,7 +115,9 @@ class Map
 
             row.forEach((tile, map_x) =>
             {
-                if(tile.isEmpty()) return;
+                console.log(`x: ${map_x}, y: ${map_y}`);
+                console.log(tile);
+                if(tile == null || tile.filename == null) return;
                 if(map_x >= this.width) return;
 
                 this.drawTile(tile, map_x, map_y);
