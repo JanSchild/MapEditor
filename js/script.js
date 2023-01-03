@@ -1,5 +1,5 @@
 // MAP
-var map = new Map('My first map', 50, 30);
+var map = new GameMap('My first map', 50, 30);
 map.canvas.addEventListener('mousedown', placeTileOnMap);
 map.canvas.addEventListener('mousemove', placeTileOnMap);
 
@@ -45,7 +45,7 @@ function importMap(event)
         reader.onload = () => 
         { 
             var importedMap = JSON.parse(reader.result);
-            map = new Map(importedMap.name, importedMap.width, importedMap.height);
+            map = new GameMap(importedMap.name, importedMap.width, importedMap.height);
             map.layer.import(importedMap);
             map.setSize(importedMap.width, importedMap.height);
         }

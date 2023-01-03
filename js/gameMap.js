@@ -1,4 +1,4 @@
-class Map
+class GameMap
 {
     static minWidth = 20;
     static maxWidth = 1000;
@@ -47,8 +47,8 @@ class Map
 
     setSize(width, height)
     {
-        width = limitValue(width, Map.minWidth, Map.maxWidth);
-        height = limitValue(height, Map.minHeight, Map.maxHeight);
+        width = limitValue(width, GameMap.minWidth, GameMap.maxWidth);
+        height = limitValue(height, GameMap.minHeight, GameMap.maxHeight);
 
         this.width = width;
         this.height = height;
