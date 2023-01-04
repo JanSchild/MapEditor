@@ -135,6 +135,17 @@ class GameMap
         exportJSON(exportData, 'map.json');
     }
 
+    import(importedMap)
+    {
+        this.mapNameInput = document.getElementById('map-name');
+        this.mapWidthInput = document.getElementById('map-width');
+        this.mapHeightInput = document.getElementById('map-height');
+
+        this.layer.import(importedMap);
+
+        this.setSize(importedMap.width, importedMap.height);
+    }
+
     coordinateExists(x, y)
     {
         if(x < 0) return false;

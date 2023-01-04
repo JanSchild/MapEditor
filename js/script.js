@@ -45,9 +45,10 @@ function importMap(event)
         reader.onload = () => 
         { 
             var importedMap = JSON.parse(reader.result);
-            map = new GameMap(importedMap.name, importedMap.width, importedMap.height);
-            map.layer.import(importedMap);
-            map.setSize(importedMap.width, importedMap.height);
+            // map = new GameMap(importedMap.name, importedMap.width, importedMap.height);
+            // map.layer.import(importedMap);
+            // map.drawMap();
+            map.import(importedMap);
         }
     }
 }
