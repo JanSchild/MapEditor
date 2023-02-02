@@ -7,6 +7,7 @@ class GameMap
     static maxHeight = 100;
     
     static canvas = document.getElementById('map');
+    static context = GameMap.canvas.getContext('2d');
 
     constructor(name, width, height)
     {
@@ -18,7 +19,6 @@ class GameMap
         this.mapWidthInput = document.getElementById('map-width');
         this.mapHeightInput = document.getElementById('map-height');
 
-        this.context = GameMap.canvas.getContext('2d');
 
         this.layer = new Layer(height);
 
@@ -67,12 +67,12 @@ class GameMap
 
     clearCanvas()
     {
-        this.context.clearRect(0, 0, GameMap.canvas.width, GameMap.canvas.height);
+        GameMap.context.clearRect(0, 0, GameMap.canvas.width, GameMap.canvas.height);
     }
 
     clearTile(x, y)
     {
-        this.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
+        GameMap.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
         this.layer.unsetTile(x, y);
     }
       
@@ -104,7 +104,7 @@ class GameMap
         var source_x = newTile.x * Tileset.tileWidth;
         var source_y = newTile.y * Tileset.tileHeight;
 
-        this.context.drawImage(tileset_image, source_x, source_y, Tileset.tileWidth, Tileset.tileHeight, 
+        GameMap.context.drawImage(tileset_image, source_x, source_y, Tileset.tileWidth, Tileset.tileHeight, 
             draw_x, draw_y, Tileset.tileWidth, Tileset.tileHeight);
     }
 
