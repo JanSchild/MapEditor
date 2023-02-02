@@ -22,7 +22,7 @@ class Tileset
 
     static canvas = document.getElementById('tileset');
     static context = Tileset.canvas.getContext('2d');
-    static chooser = document.getElementById('tileset-chooser');
+    static dropdownMenu = document.getElementById('tileset-chooser');
 
     static currentTile() { return new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY ) }
 
@@ -101,7 +101,7 @@ class Tileset
                 option.selected = true;
             option.value = tileset_name;
             option.innerHTML = tileset_name;
-            Tileset.chooser.appendChild(option);
+            Tileset.dropdownMenu.appendChild(option);
         }
     }
 }
