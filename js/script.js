@@ -1,7 +1,7 @@
 // MAP
 var map = new GameMap('My first map', 50, 30);
-map.canvas.addEventListener('mousedown', placeTileOnMap);
-map.canvas.addEventListener('mousemove', placeTileOnMap);
+GameMap.canvas.addEventListener('mousedown', placeTileOnMap);
+GameMap.canvas.addEventListener('mousemove', placeTileOnMap);
 
 function placeTileOnMap(event)
 { 
@@ -73,13 +73,13 @@ window.addEventListener('keydown', (event) =>
 window.addEventListener('keydown', (event) =>
 {
     if(event.code == 'KeyF')
-        map.canvas.style.cursor = 'copy';
+        GameMap.canvas.style.cursor = 'copy';
 });
 
 window.addEventListener('keyup', (event) =>
 {
     if(event.code == 'KeyF')
-        map.canvas.style.cursor = 'auto';
+        GameMap.canvas.style.cursor = 'auto';
 });
 
 // UTILITY FUNCTIONS

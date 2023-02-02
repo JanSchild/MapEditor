@@ -6,6 +6,8 @@ class GameMap
     static minHeight = 15;
     static maxHeight = 100;
     
+    static canvas = document.getElementById('map');
+
     constructor(name, width, height)
     {
         this.name = name;
@@ -16,8 +18,7 @@ class GameMap
         this.mapWidthInput = document.getElementById('map-width');
         this.mapHeightInput = document.getElementById('map-height');
 
-        this.canvas = document.getElementById('map');
-        this.context = this.canvas.getContext('2d');
+        this.context = GameMap.canvas.getContext('2d');
 
         this.layer = new Layer(height);
 
@@ -45,6 +46,8 @@ class GameMap
 
     }
 
+    // add GETTERS and SETTERS for NAME, WIDTH, HEIGHT !!!
+
     setSize(width, height)
     {
         width = limitValue(width, GameMap.minWidth, GameMap.maxWidth);
@@ -53,8 +56,8 @@ class GameMap
         this.width = width;
         this.height = height;
         
-        this.canvas.width = Tileset.tileWidth * width;
-        this.canvas.height = Tileset.tileHeight * height;
+        GameMap.canvas.width = Tileset.tileWidth * width;
+        GameMap.canvas.height = Tileset.tileHeight * height;
 
         this.mapWidthInput.value = width;
         this.mapHeightInput.value = height;
@@ -64,7 +67,7 @@ class GameMap
 
     clearCanvas()
     {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.context.clearRect(0, 0, GameMap.canvas.width, GameMap.canvas.height);
     }
 
     clearTile(x, y)
