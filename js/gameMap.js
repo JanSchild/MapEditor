@@ -15,32 +15,27 @@ class GameMap
         this.width = width;
         this.height = height;
         
-        this.mapNameInput = document.getElementById('map-name');
-        this.mapWidthInput = document.getElementById('map-width');
-        this.mapHeightInput = document.getElementById('map-height');
-
-
         this.layer = new Layer(height);
 
         this.setSize(width, height);
 
-        this.mapNameInput.value = this.name;
-        this.mapNameInput.addEventListener('change', (event) =>
+        UI.textfield.mapName.value = this.name;
+        UI.textfield.mapName.addEventListener('change', (event) =>
         {
             this.name = event.target.value;
         });
 
-        this.mapWidthInput.addEventListener('change', (event) =>
+        UI.textfield.mapWidth.addEventListener('change', (event) =>
         {
             var newValue = parseInt(event.target.value);
-            if(isNaN(newValue)) { this.mapWidthInput.value = this.width; return; }
+            if(isNaN(newValue)) { UI.textfield.mapWidth.value = this.width; return; }
             this.setSize(newValue, this.height);
         });
 
-        this.mapHeightInput.addEventListener('change', (event) =>
+        UI.textfield.mapHeight.addEventListener('change', (event) =>
         {
             var newValue = parseInt(event.target.value);
-            if(isNaN(newValue)) { this.mapHeightInput.value = this.height; return; }
+            if(isNaN(newValue)) { UI.textfield.mapHeight.value = this.height; return; }
             this.setSize(this.width, newValue);
         });
 
@@ -59,8 +54,8 @@ class GameMap
         GameMap.canvas.width = Tileset.tileWidth * width;
         GameMap.canvas.height = Tileset.tileHeight * height;
 
-        this.mapWidthInput.value = width;
-        this.mapHeightInput.value = height;
+        UI.textfield.mapWidth.value = width;
+        UI.textfield.mapHeight.value = height;
 
         this.drawMap();
     }
@@ -146,12 +141,9 @@ class GameMap
 
     import(importedMap) // TODO: make static
     {
-        this.mapNameInput = document.getElementById('map-name');
-        this.mapWidthInput = document.getElementById('map-width');
-        this.mapHeightInput = document.getElementById('map-height');
-
         this.layer.import(importedMap);
 
+        UI.textfield.mapName.value = importedMap.name;
         this.setSize(importedMap.width, importedMap.height);
     }
 

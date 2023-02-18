@@ -5,9 +5,9 @@ class UI
     };
 
     static textfield = {
-        mapName: '',
-        mapWidth: 20,
-        mapHeight: 15
+        mapName: document.getElementById('map-name'),
+        mapWidth: document.getElementById('map-width'),
+        mapHeight: document.getElementById('map-height')
     };
 
     static dropdown = {
