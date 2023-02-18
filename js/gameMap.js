@@ -90,9 +90,15 @@ class GameMap
     {
         if(newTile.isEmpty()) return;
 
-        if(!Tileset.filenames.has(newTile.filename)) // FIX: check loadedFiles instead
+        if(!Tileset.filenames.has(newTile.filename))
         {
             console.error(`${newTile.filename} not found.`);
+            return;
+        }
+
+        if(!Tileset.loadedFiles.has(newTile.filename))
+        {
+            console.error(`${newTile.filename} has not loaded yet.`);
             return;
         }
 

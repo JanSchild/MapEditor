@@ -8,7 +8,7 @@ class Tileset
     }
     
     static filenames = new Set(['tilesets/floor.png', 'tilesets/forest.png', 'tilesets/forest_dead.png']);
-    static loadedFiles = new Array();
+    static loadedFiles = new Set();
     
     static current = Tileset.filenames.values().next().value;
 
@@ -81,7 +81,7 @@ class Tileset
             image.src = filename;
             image.addEventListener("load", (event) =>
             {
-                Tileset.loadedFiles.push(event.target.src);
+                Tileset.loadedFiles.add(filename);
                 if(event.target.src.includes(Tileset.current))
                 {
                     Tileset.show(Tileset.current);
