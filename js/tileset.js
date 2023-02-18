@@ -82,10 +82,8 @@ class Tileset
             image.addEventListener("load", (event) =>
             {
                 Tileset.loadedFiles.add(filename);
-                if(event.target.src.includes(Tileset.current))
-                {
+                if(filename == Tileset.current)
                     Tileset.show(Tileset.current);
-                }
             });
             Tileset.images[filename] = image;
         });
