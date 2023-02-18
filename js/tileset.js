@@ -20,8 +20,7 @@ class Tileset
     static selectedX = 0;
     static selectedY = 0;    
 
-    static canvas = document.getElementById('tileset');
-    static context = Tileset.canvas.getContext('2d');
+    static context = UI.canvas.tileset.getContext('2d');
     static dropdownMenu = document.getElementById('tileset-chooser');
 
     static currentTile() { return new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY ) }
@@ -41,8 +40,8 @@ class Tileset
         Tileset.current = filename;
         Tileset.image = Tileset.images[filename];
     
-        Tileset.canvas.width = Tileset.image.naturalWidth;
-        Tileset.canvas.height = Tileset.image.naturalHeight;
+        UI.canvas.tileset.width = Tileset.image.naturalWidth;
+        UI.canvas.tileset.height = Tileset.image.naturalHeight;
     
         Tileset.selectedX = 0;
         Tileset.selectedY = 0;
@@ -64,7 +63,7 @@ class Tileset
 
     static selectTile(event)
     {
-        Tileset.context.clearRect(0, 0, Tileset.canvas.width, Tileset.canvas.height);
+        Tileset.context.clearRect(0, 0, UI.canvas.tileset.width, UI.canvas.tileset.height);
 
         Tileset.draw();
 

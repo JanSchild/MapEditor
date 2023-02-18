@@ -1,7 +1,7 @@
 // MAP
 var map = new GameMap('My first map', 50, 30); // TODO: replace with static Map.current
-GameMap.canvas.addEventListener('mousedown', placeTileOnMap);
-GameMap.canvas.addEventListener('mousemove', placeTileOnMap);
+UI.canvas.map.addEventListener('mousedown', placeTileOnMap);
+UI.canvas.map.addEventListener('mousemove', placeTileOnMap);
 
 function placeTileOnMap(event)
 { 
@@ -55,7 +55,7 @@ function importMap(event)
 // TILESET
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();
-Tileset.canvas.addEventListener('click', Tileset.selectTile);
+UI.canvas.tileset.addEventListener('click', Tileset.selectTile);
 Tileset.dropdownMenu.addEventListener('change', Tileset.change);
 
 // KEYBOARD MANAGEMENT
@@ -72,13 +72,13 @@ window.addEventListener('keydown', (event) =>
 window.addEventListener('keydown', (event) =>
 {
     if(event.code == 'KeyF')
-        GameMap.canvas.style.cursor = 'copy';
+        UI.canvas.map.style.cursor = 'copy';
 });
 
 window.addEventListener('keyup', (event) =>
 {
     if(event.code == 'KeyF')
-        GameMap.canvas.style.cursor = 'auto';
+        UI.canvas.map.style.cursor = 'auto';
 });
 
 // UTILITY FUNCTIONS

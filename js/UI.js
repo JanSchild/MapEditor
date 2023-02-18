@@ -19,7 +19,7 @@ class UI
     };
 
     static canvas = {
-        map: '',
-        tileset: ''
+        map: document.getElementById('map'),
+        tileset: document.getElementById('tileset')
     };
 }

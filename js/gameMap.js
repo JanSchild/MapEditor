@@ -6,8 +6,7 @@ class GameMap
     static minHeight = 15;
     static maxHeight = 100;
     
-    static canvas = document.getElementById('map');
-    static context = GameMap.canvas.getContext('2d');
+    static context = UI.canvas.map.getContext('2d');
 
     constructor(name, width, height)
     {
@@ -51,8 +50,8 @@ class GameMap
         this.width = width;
         this.height = height;
         
-        GameMap.canvas.width = Tileset.tileWidth * width;
-        GameMap.canvas.height = Tileset.tileHeight * height;
+        UI.canvas.map.width = Tileset.tileWidth * width;
+        UI.canvas.map.height = Tileset.tileHeight * height;
 
         UI.textfield.mapWidth.value = width;
         UI.textfield.mapHeight.value = height;
@@ -62,7 +61,7 @@ class GameMap
 
     clearCanvas()
     {
-        GameMap.context.clearRect(0, 0, GameMap.canvas.width, GameMap.canvas.height);
+        GameMap.context.clearRect(0, 0, UI.canvas.map.width, UI.canvas.map.height);
     }
 
     clearTile(x, y)
