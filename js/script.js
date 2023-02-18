@@ -56,7 +56,7 @@ function importMap(event)
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();
 UI.canvas.tileset.addEventListener('click', Tileset.selectTile);
-Tileset.dropdownMenu.addEventListener('change', Tileset.change);
+UI.dropdown.tilesets.addEventListener('change', Tileset.change);
 
 // KEYBOARD MANAGEMENT
 var activeKeys = new Set();

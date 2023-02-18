@@ -96,7 +96,7 @@ class Tileset
                 option.selected = true;
             option.value = filename;
             option.innerHTML = filename;
-            Tileset.dropdownMenu.appendChild(option);
+            UI.dropdown.tilesets.appendChild(option);
         });
     }
 }

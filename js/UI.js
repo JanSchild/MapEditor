@@ -1,7 +1,7 @@
 class UI
 {
     static button = {
-        saveMap: ''
+        saveMap: document.getElementById('map-download')
     };
 
     static textfield = {
@@ -11,7 +11,7 @@ class UI
     };
 
     static dropdown = {
-        tilesets: ''
+        tilesets: document.getElementById('tileset-chooser')
     }
 
     static filechooser = {
