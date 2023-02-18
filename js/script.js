@@ -1,5 +1,5 @@
 // MAP
-var map = new GameMap('My first map', 50, 30);
+var map = new GameMap('My first map', 50, 30); // TODO: replace with static Map.current
 GameMap.canvas.addEventListener('mousedown', placeTileOnMap);
 GameMap.canvas.addEventListener('mousemove', placeTileOnMap);
 
@@ -31,8 +31,7 @@ function placeTileOnMap(event)
 }
 
 // MAP IMPORT, EXPORT
-var fileSelector = document.getElementById('map-importer');
-fileSelector.addEventListener('change', importMap);
+UI.filechooser.mapUpload.addEventListener('change', importMap);
 
 function importMap(event)
 {

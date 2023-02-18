@@ -15,6 +15,11 @@ class UI
     }
 
     static filechooser = {
-        mapUpload: ''
+        mapUpload: document.getElementById('map-importer')
+    };
+
+    static canvas = {
+        map: '',
+        tileset: ''
     };
 }
