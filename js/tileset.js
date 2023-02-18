@@ -75,7 +75,8 @@ class Tileset
 
     static loadTilesets()
     {
-        this.filenames.forEach(filename => {
+        this.filenames.forEach(filename => 
+        {
             var image = new Image();
             image.src = filename;
             image.addEventListener("load", (event) =>
@@ -90,7 +91,8 @@ class Tileset
 
     static generateDropdownMenu()
     {
-        this.filenames.forEach(filename => {
+        this.filenames.forEach(filename => 
+        {
             var option = document.createElement('option');
             if(filename == Tileset.current)
                 option.selected = true;
