@@ -86,7 +86,7 @@ class GameMap
         this.drawTile(newTile, x, y);
     }
 
-    drawTile(newTile, map_x, map_y)
+    drawTile(newTile, map_x, map_y) // TODO: make static
     {
         if(newTile.isEmpty()) return;
 
@@ -114,7 +114,7 @@ class GameMap
             draw_x, draw_y, Tileset.tileWidth, Tileset.tileHeight);
     }
 
-    drawMap()
+    drawMap() // TODO: make static
     {
         this.clearCanvas();
 
@@ -132,7 +132,7 @@ class GameMap
         });
     }
 
-    download()
+    download() // TODO: make static
     {
         var exportData =
         {
@@ -144,7 +144,7 @@ class GameMap
         exportJSON(exportData, 'map.json');
     }
 
-    import(importedMap)
+    import(importedMap) // TODO: make static
     {
         this.mapNameInput = document.getElementById('map-name');
         this.mapWidthInput = document.getElementById('map-width');
