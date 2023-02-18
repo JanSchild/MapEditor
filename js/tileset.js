@@ -7,10 +7,10 @@ class Tileset
         this.image = new Image();
     }
     
-    static filenames = ['tilesets/floor.png', 'tilesets/forest.png', 'tilesets/forest_dead.png'];
+    static filenames = new Set(['tilesets/floor.png', 'tilesets/forest.png', 'tilesets/forest_dead.png']);
     static loadedFiles = new Array();
     
-    static current = Tileset.filenames[0];
+    static current = Tileset.filenames.values().next().value;
 
     static images = new Array();
 
@@ -76,8 +76,7 @@ class Tileset
 
     static loadTilesets()
     {
-        for(var filename of Tileset.filenames)
-        {
+        this.filenames.forEach(filename => {
             var image = new Image();
             image.src = filename;
             image.addEventListener("load", (event) =>
@@ -89,19 +88,18 @@ class Tileset
                 }
             });
             Tileset.images[filename] = image;
-        }
+        });
     }
 
     static generateDropdownMenu()
     {
-        for(var tileset_name of Tileset.filenames)
-        {
+        this.filenames.forEach(filename => {
             var option = document.createElement('option');
-            if(tileset_name == Tileset.current)
+            if(filename == Tileset.current)
                 option.selected = true;
-            option.value = tileset_name;
-            option.innerHTML = tileset_name;
+            option.value = filename;
+            option.innerHTML = filename;
             Tileset.dropdownMenu.appendChild(option);
-        }
+        });
     }
 }
