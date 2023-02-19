@@ -65,10 +65,10 @@ class GameMap
         
         GameMap.clearTile(x, y);
         GameMap.current.layer.setTile(newTile, x, y);
-        GameMap.current.drawTile(newTile, x, y);
+        GameMap.drawTile(newTile, x, y);
     }
 
-    drawTile(newTile, map_x, map_y) // TODO: make static
+    static drawTile(newTile, map_x, map_y) // TODO: make static
     {
         if(newTile.isEmpty()) return;
 
@@ -109,7 +109,7 @@ class GameMap
                 if(tile == null || tile.isEmpty()) return;
                 if(map_x >= this.width) return;
 
-                this.drawTile(tile, map_x, map_y);
+                GameMap.drawTile(tile, map_x, map_y);
             });
         });
     }
