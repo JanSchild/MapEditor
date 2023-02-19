@@ -1,7 +1,4 @@
 // MAP
-UI.canvas.map.addEventListener('mousedown', placeTileOnMap);
-UI.canvas.map.addEventListener('mousemove', placeTileOnMap);
-
 function placeTileOnMap(event)
 { 
     // check if left mouse button is held down
@@ -30,8 +27,6 @@ function placeTileOnMap(event)
 }
 
 // MAP IMPORT, EXPORT
-UI.filechooser.mapUpload.addEventListener('change', importMap);
-
 function importMap(event)
 {
     const fileList = event.target.files;
@@ -51,27 +46,4 @@ function importMap(event)
 // TILESET
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();
-UI.canvas.tileset.addEventListener('click', Tileset.selectTile);
-UI.dropdown.tilesets.addEventListener('change', Tileset.change);
 
-// KEYBOARD MANAGEMENT
-var activeKeys = new Set();
-window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
-window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
-window.addEventListener('keydown', (event) => 
-{
-    if(event.ctrlKey && event.code == 'KeyZ')
-        History.undo();
-    if(event.ctrlKey && event.code == 'KeyY')
-        History.redo();
-});
-window.addEventListener('keydown', (event) =>
-{
-    if(event.code == 'KeyF')
-        UI.canvas.map.style.cursor = 'copy';
-});
-window.addEventListener('keyup', (event) =>
-{
-    if(event.code == 'KeyF')
-        UI.canvas.map.style.cursor = 'auto';
-});

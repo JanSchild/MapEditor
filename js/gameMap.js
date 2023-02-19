@@ -45,26 +45,6 @@ class GameMap
         this.name = name;
         this.width = width;
         this.height = height;
-
-        UI.textfield.mapName.addEventListener('change', (event) =>
-        {
-            this.name = event.target.value;
-        });
-
-        UI.textfield.mapWidth.addEventListener('change', (event) =>
-        {
-            var newValue = parseInt(event.target.value);
-            if(isNaN(newValue)) { UI.textfield.mapWidth.value = this.width; return; }
-            this.width = newValue;
-        });
-
-        UI.textfield.mapHeight.addEventListener('change', (event) =>
-        {
-            var newValue = parseInt(event.target.value);
-            if(isNaN(newValue)) { UI.textfield.mapHeight.value = this.height; return; }
-            this.height = newValue;
-        });
-
     }
 
     clearCanvas()
