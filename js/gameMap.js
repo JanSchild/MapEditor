@@ -68,7 +68,7 @@ class GameMap
         GameMap.drawTile(newTile, x, y);
     }
 
-    static drawTile(newTile, map_x, map_y) // TODO: make static
+    static drawTile(newTile, map_x, map_y)
     {
         if(newTile.isEmpty()) return;
 
