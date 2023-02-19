@@ -60,7 +60,7 @@ class GameMap
       
     static setTile(newTile, x, y) 
     {
-        if(!GameMap.current.coordinateExists(x, y)) return;
+        if(!GameMap.coordinateExists(x, y)) return;
         if(GameMap.current.layer.tile(x, y).isIdentical(newTile)) return;
         
         GameMap.clearTile(x, y);
@@ -145,12 +145,12 @@ class GameMap
         }
     }
 
-    coordinateExists(x, y)
+    static coordinateExists(x, y)
     {
         if(x < 0) return false;
-        if(x >= this.width) return false;
+        if(x >= GameMap.current.width) return false;
         if(y < 0) return false;
-        if(y >= this.height) return false;
+        if(y >= GameMap.current.height) return false;
 
         return true;
     }
@@ -159,7 +159,7 @@ class GameMap
     {
         var tryFlood = function(x, y, startTile, newTile)
         {
-            if(GameMap.current.coordinateExists(x, y) && GameMap.current.layer.tile(x, y).isIdentical(startTile))
+            if(GameMap.coordinateExists(x, y) && GameMap.current.layer.tile(x, y).isIdentical(startTile))
             {
                 GameMap.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
                 GameMap.setTile(newTile, x, y);
