@@ -8,15 +8,39 @@ class GameMap
     
     static context = UI.canvas.map.getContext('2d');
 
+    #width;
+    get width()
+    {
+        return this.#width;
+    }
+    set width(value)
+    {
+        this.#width = limitValue(value, GameMap.minWidth, GameMap.maxWidth);
+        UI.canvas.map.width = Tileset.tileWidth * this.width;
+        UI.textfield.mapWidth.value = this.width;
+        this.drawMap();
+    }
+
+    #height;
+    get height()
+    {
+        return this.#height;
+    }
+    set height(value)
+    {
+        this.#height = limitValue(value, GameMap.minHeight, GameMap.maxHeight);
+        UI.canvas.map.height = Tileset.tileHeight * this.height;
+        UI.textfield.mapHeight.value = this.height;
+        this.drawMap();
+    }
+
     constructor(name, width, height)
     {
+        this.layer = new Layer(height);
+
         this.name = name;
         this.width = width;
         this.height = height;
-        
-        this.layer = new Layer(height);
-
-        this.setSize(width, height);
 
         UI.textfield.mapName.value = this.name;
         UI.textfield.mapName.addEventListener('change', (event) =>
@@ -28,35 +52,16 @@ class GameMap
         {
             var newValue = parseInt(event.target.value);
             if(isNaN(newValue)) { UI.textfield.mapWidth.value = this.width; return; }
-            this.setSize(newValue, this.height);
+            this.width = newValue;
         });
 
         UI.textfield.mapHeight.addEventListener('change', (event) =>
         {
             var newValue = parseInt(event.target.value);
             if(isNaN(newValue)) { UI.textfield.mapHeight.value = this.height; return; }
-            this.setSize(this.width, newValue);
+            this.height = newValue;
         });
 
-    }
-
-    // add GETTERS and SETTERS for NAME, WIDTH, HEIGHT !!!
-
-    setSize(width, height)
-    {
-        width = limitValue(width, GameMap.minWidth, GameMap.maxWidth);
-        height = limitValue(height, GameMap.minHeight, GameMap.maxHeight);
-
-        this.width = width;
-        this.height = height;
-        
-        UI.canvas.map.width = Tileset.tileWidth * width;
-        UI.canvas.map.height = Tileset.tileHeight * height;
-
-        UI.textfield.mapWidth.value = width;
-        UI.textfield.mapHeight.value = height;
-
-        this.drawMap();
     }
 
     clearCanvas()
@@ -142,8 +147,10 @@ class GameMap
     {
         this.layer.import(importedMap);
 
+        this.width = importedMap.width;
+        this.height = importedMap.height;
+        
         UI.textfield.mapName.value = importedMap.name;
-        this.setSize(importedMap.width, importedMap.height);
     }
 
     coordinateExists(x, y)
