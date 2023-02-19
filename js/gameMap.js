@@ -8,11 +8,16 @@ class GameMap
     
     static context = UI.canvas.map.getContext('2d');
 
-    #width;
-    get width()
+    #name;
+    get name() { return this.#name; }
+    set name(value)
     {
-        return this.#width;
+        this.#name = value;
+        UI.textfield.mapName.value = this.name;
     }
+
+    #width;
+    get width() { return this.#width; }
     set width(value)
     {
         this.#width = limitValue(value, GameMap.minWidth, GameMap.maxWidth);
@@ -22,10 +27,7 @@ class GameMap
     }
 
     #height;
-    get height()
-    {
-        return this.#height;
-    }
+    get height() { return this.#height; }
     set height(value)
     {
         this.#height = limitValue(value, GameMap.minHeight, GameMap.maxHeight);
@@ -42,7 +44,6 @@ class GameMap
         this.width = width;
         this.height = height;
 
-        UI.textfield.mapName.value = this.name;
         UI.textfield.mapName.addEventListener('change', (event) =>
         {
             this.name = event.target.value;
@@ -147,10 +148,9 @@ class GameMap
     {
         this.layer.import(importedMap);
 
+        this.name = importedMap.name;
         this.width = importedMap.width;
         this.height = importedMap.height;
-        
-        UI.textfield.mapName.value = importedMap.name;
     }
 
     coordinateExists(x, y)
