@@ -3,7 +3,7 @@ UI.canvas.tileset.addEventListener('click', Tileset.selectTile);
 UI.dropdown.tilesets.addEventListener('change', Tileset.change);
 
 // MAP
-UI.button.saveMap.addEventListener('click', GameMap.current.download);
+UI.button.saveMap.addEventListener('click', GameMap.export);
 UI.filechooser.mapUpload.addEventListener('change', GameMap.import);
 
 UI.textfield.mapName.addEventListener('change', (event) =>

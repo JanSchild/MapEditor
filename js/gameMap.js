@@ -114,14 +114,14 @@ class GameMap
         });
     }
 
-    download() // TODO: make static
+    static export()
     {
         var exportData =
         {
-            name: this.name,
-            width: this.width,
-            height: this.height,
-            layer: this.layer
+            name: GameMap.current.name,
+            width: GameMap.current.width,
+            height: GameMap.current.height,
+            layer: GameMap.current.layer
         };
         exportJSON(exportData, 'map.json');
     }
