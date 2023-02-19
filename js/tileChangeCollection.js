@@ -19,7 +19,7 @@ class TileChangeCollection
     {
         this.tileChanges.forEach((tileChange) =>
         {
-            GameMap.current.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY);
+            GameMap.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY);
         });
     }
 
@@ -27,7 +27,7 @@ class TileChangeCollection
     {
         this.tileChanges.forEach((tileChange) =>
         {
-            GameMap.current.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY);
+            GameMap.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY);
         });
     }
 }

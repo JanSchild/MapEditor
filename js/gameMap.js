@@ -58,14 +58,14 @@ class GameMap
         GameMap.current.layer.unsetTile(x, y);
     }
       
-    setTile(newTile, x, y) 
+    static setTile(newTile, x, y) 
     {
-        if(!this.coordinateExists(x, y)) return;
-        if(this.layer.tile(x, y).isIdentical(newTile)) return;
+        if(!GameMap.current.coordinateExists(x, y)) return;
+        if(GameMap.current.layer.tile(x, y).isIdentical(newTile)) return;
         
         GameMap.clearTile(x, y);
-        this.layer.setTile(newTile, x, y);
-        this.drawTile(newTile, x, y);
+        GameMap.current.layer.setTile(newTile, x, y);
+        GameMap.current.drawTile(newTile, x, y);
     }
 
     drawTile(newTile, map_x, map_y) // TODO: make static
@@ -162,7 +162,7 @@ class GameMap
             if(GameMap.current.coordinateExists(x, y) && GameMap.current.layer.tile(x, y).isIdentical(startTile))
             {
                 GameMap.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
-                GameMap.current.setTile(newTile, x, y);
+                GameMap.setTile(newTile, x, y);
                 newFloodCenter(x, y, startTile, newTile);
             }
         }
@@ -196,7 +196,7 @@ class GameMap
 
         if(newTile.isIdentical(startTile)) return;
         
-        GameMap.current.setTile(newTile, x, y);
+        GameMap.setTile(newTile, x, y);
         GameMap.current.tileChangeCollection = new TileChangeCollection();
         GameMap.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
         

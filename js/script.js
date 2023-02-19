@@ -18,7 +18,7 @@ function placeTileOnMap(event)
             return;
         }
         // single tile
-        GameMap.current.setTile(new_tile, map_x, map_y);  
+        GameMap.setTile(new_tile, map_x, map_y);  
 
         var changes = new TileChangeCollection();
         changes.add(new TileChange(map_x, map_y, old_tile, new_tile));
