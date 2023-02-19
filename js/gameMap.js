@@ -52,10 +52,10 @@ class GameMap
         GameMap.context.clearRect(0, 0, UI.canvas.map.width, UI.canvas.map.height);
     }
 
-    clearTile(x, y)
+    static clearTile(x, y)
     {
         GameMap.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
-        this.layer.unsetTile(x, y);
+        GameMap.current.layer.unsetTile(x, y);
     }
       
     setTile(newTile, x, y) 
@@ -63,7 +63,7 @@ class GameMap
         if(!this.coordinateExists(x, y)) return;
         if(this.layer.tile(x, y).isIdentical(newTile)) return;
         
-        this.clearTile(x, y);
+        GameMap.clearTile(x, y);
         this.layer.setTile(newTile, x, y);
         this.drawTile(newTile, x, y);
     }
