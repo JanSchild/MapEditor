@@ -47,7 +47,7 @@ class GameMap
         this.height = height;
     }
 
-    clearCanvas()
+    static clearCanvas()
     {
         GameMap.context.clearRect(0, 0, UI.canvas.map.width, UI.canvas.map.height);
     }
@@ -98,7 +98,7 @@ class GameMap
 
     drawMap() // TODO: make static
     {
-        this.clearCanvas();
+        GameMap.clearCanvas();
 
         this.layer.data.forEach((row, map_y) => 
         {
