@@ -126,13 +126,13 @@ class GameMap
         exportJSON(exportData, 'map.json');
     }
 
-    import(importedMap) // TODO: make static
+    static import(importedMap)
     {
-        this.layer.import(importedMap);
+        GameMap.current.layer.import(importedMap);
 
-        this.name = importedMap.name;
-        this.width = importedMap.width;
-        this.height = importedMap.height;
+        GameMap.current.name = importedMap.name;
+        GameMap.current.width = importedMap.width;
+        GameMap.current.height = importedMap.height;
     }
 
     coordinateExists(x, y)
@@ -145,53 +145,88 @@ class GameMap
         return true;
     }
 
-    flood(x, y, newTile)
+    static flood(x, y, newTile)
     {
-        var startTile = this.layer.tile(x, y);
+        var tryFlood = function(x, y, startTile, newTile)
+        {
+            if(GameMap.current.coordinateExists(x, y) && GameMap.current.layer.tile(x, y).isIdentical(startTile))
+            {
+                GameMap.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+                GameMap.current.setTile(newTile, x, y);
+                newFloodCenter(x, y, startTile, newTile);
+            }
+        }
+
+        var newFloodCenter = function(centerX, centerY, startTile, newTile)
+        {
+            var x, y;
+    
+            // top
+            x = centerX;
+            y = centerY - 1;
+            tryFlood(x, y, startTile, newTile);
+    
+            // bottom
+            x = centerX;
+            y = centerY + 1;
+            tryFlood(x, y, startTile, newTile);
+    
+            // left
+            x = centerX - 1;
+            y = centerY;
+            tryFlood(x, y, startTile, newTile);
+            
+            // right
+            x = centerX + 1;
+            y = centerY;
+            tryFlood(x, y, startTile, newTile);
+        }
+    
+        var startTile = GameMap.current.layer.tile(x, y);
 
         if(newTile.isIdentical(startTile)) return;
         
-        this.setTile(newTile, x, y);
-        this.tileChangeCollection = new TileChangeCollection();
-        this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+        GameMap.current.setTile(newTile, x, y);
+        GameMap.current.tileChangeCollection = new TileChangeCollection();
+        GameMap.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
         
-        this.#newFloodCenter(x, y, startTile, newTile);
+        newFloodCenter(x, y, startTile, newTile);
 
-        History.add(this.tileChangeCollection);
+        History.add(GameMap.current.tileChangeCollection);
     }
 
-    #newFloodCenter(centerX, centerY, startTile, newTile)
-    {
-        var x, y;
+    // #newFloodCenter(centerX, centerY, startTile, newTile)
+    // {
+    //     var x, y;
 
-        // top
-        x = centerX;
-        y = centerY - 1;
-        this.#tryFlood(x, y, startTile, newTile);
+    //     // top
+    //     x = centerX;
+    //     y = centerY - 1;
+    //     this.#tryFlood(x, y, startTile, newTile);
 
-        // bottom
-        x = centerX;
-        y = centerY + 1;
-        this.#tryFlood(x, y, startTile, newTile);
+    //     // bottom
+    //     x = centerX;
+    //     y = centerY + 1;
+    //     this.#tryFlood(x, y, startTile, newTile);
 
-        // left
-        x = centerX - 1;
-        y = centerY;
-        this.#tryFlood(x, y, startTile, newTile);
+    //     // left
+    //     x = centerX - 1;
+    //     y = centerY;
+    //     this.#tryFlood(x, y, startTile, newTile);
         
-        // right
-        x = centerX + 1;
-        y = centerY;
-        this.#tryFlood(x, y, startTile, newTile);
-    }
+    //     // right
+    //     x = centerX + 1;
+    //     y = centerY;
+    //     this.#tryFlood(x, y, startTile, newTile);
+    // }
 
-    #tryFlood(x, y, startTile, newTile)
-    {
-        if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
-        {
-            this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
-            this.setTile(newTile, x, y);
-            this.#newFloodCenter(x, y, startTile, newTile);
-        }
-    }
+    // #tryFlood(x, y, startTile, newTile)
+    // {
+    //     if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
+    //     {
+    //         this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+    //         this.setTile(newTile, x, y);
+    //         this.#newFloodCenter(x, y, startTile, newTile);
+    //     }
+    // }
 }

@@ -14,7 +14,7 @@ function placeTileOnMap(event)
         // flood tool 
         if(activeKeys.has('KeyF'))
         {
-            GameMap.current.flood(map_x, map_y, new_tile);
+            GameMap.flood(map_x, map_y, new_tile);
             return;
         }
         // single tile
@@ -38,7 +38,7 @@ function importMap(event)
         reader.onload = () => 
         { 
             var importedMap = JSON.parse(reader.result);
-            GameMap.current.import(importedMap);
+            GameMap.import(importedMap);
         }
     }
 }
