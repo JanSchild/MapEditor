@@ -8,6 +8,8 @@ class GameMap
     
     static context = UI.canvas.map.getContext('2d');
 
+    static current = new GameMap('Sample map', 30, 20);
+
     #name;
     get name() { return this.#name; }
     set name(value)

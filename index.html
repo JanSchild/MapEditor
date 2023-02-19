@@ -37,8 +37,8 @@
             <legend>File</legend>
             <p>
                 <label for="map-download">Export map:</label>
-                <!-- // TODO: replace with static GameMap.download() -->
-                <button id="map-download" onclick="map.download()">Download</button> 
+                <!-- // TODO: replace onclick with addEventListener -->
+                <button id="map-download" onclick="GameMap.current.download()">Download</button> 
             </p>
             <p>
                 <label for="map-importer">Import map:</label>
@@ -57,11 +57,12 @@
 </body>
 </html>
 
+<script src="js/utility.js"></script>
 <script src="js/UI.js"></script>
-<script src="js/gameMap.js"></script>
-<script src="js/layer.js"></script>
 <script src="js/tile.js"></script>
 <script src="js/tileset.js"></script>
+<script src="js/layer.js"></script>
+<script src="js/gameMap.js"></script>
 <script src="js/tileChange.js"></script>
 <script src="js/tileChangeCollection.js"></script>
 <script src="js/history.js"></script>
