@@ -26,23 +26,6 @@ function placeTileOnMap(event)
     }
 }
 
-// MAP IMPORT, EXPORT
-function importMap(event)
-{
-    const fileList = event.target.files;
-    if(fileList[0] !== undefined)
-    {
-        var file = fileList[0];
-        var reader = new FileReader();
-        reader.readAsText(file);
-        reader.onload = () => 
-        { 
-            var importedMap = JSON.parse(reader.result);
-            GameMap.import(importedMap);
-        }
-    }
-}
-
 // TILESET
 Tileset.generateDropdownMenu();
 Tileset.loadTilesets();

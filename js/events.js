@@ -4,7 +4,7 @@ UI.dropdown.tilesets.addEventListener('change', Tileset.change);
 
 // MAP
 UI.button.saveMap.addEventListener('click', GameMap.current.download);
-UI.filechooser.mapUpload.addEventListener('change', importMap);
+UI.filechooser.mapUpload.addEventListener('change', GameMap.import);
 
 UI.textfield.mapName.addEventListener('change', (event) =>
 {

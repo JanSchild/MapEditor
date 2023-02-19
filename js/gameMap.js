@@ -126,13 +126,23 @@ class GameMap
         exportJSON(exportData, 'map.json');
     }
 
-    static import(importedMap)
+    static import(event)
     {
-        GameMap.current.layer.import(importedMap);
-
-        GameMap.current.name = importedMap.name;
-        GameMap.current.width = importedMap.width;
-        GameMap.current.height = importedMap.height;
+        const fileList = event.target.files;
+        if(fileList[0] !== undefined)
+        {
+            var file = fileList[0];
+            var reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = () => 
+            { 
+                var importedMap = JSON.parse(reader.result);
+                GameMap.current = Object.assign(new GameMap, importedMap);
+                GameMap.current.layer = Object.assign(new Layer, importedMap.layer);
+                GameMap.current.layer.convertDataToTiles();
+                GameMap.current.drawMap();
+            }
+        }
     }
 
     coordinateExists(x, y)

@@ -32,20 +32,16 @@ class Layer
         this.setTile(null, x, y);
     }
 
-    import(importedMap)
+    convertDataToTiles()
     {
-        this.data = new Array();
-
-        importedMap.layer.data.forEach((row, map_y) => 
+        this.data.forEach((row, map_y) => 
         {
-            this.data.push(new Array());
-
             row.forEach((tile, map_x) =>
             {
                 if(tile == null || tile.filename == null)
-                    this.data[map_y].push(Tile.emptyTile());
+                    this.data[map_y][map_x] = Tile.emptyTile();
                 else
-                    this.data[map_y].push(new Tile(tile.filename, tile.x, tile.y));
+                    this.data[map_y][map_x] = Object.assign(new Tile, tile);
             });
         });
     }
