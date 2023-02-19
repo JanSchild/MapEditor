@@ -194,39 +194,4 @@ class GameMap
 
         History.add(GameMap.current.tileChangeCollection);
     }
-
-    // #newFloodCenter(centerX, centerY, startTile, newTile)
-    // {
-    //     var x, y;
-
-    //     // top
-    //     x = centerX;
-    //     y = centerY - 1;
-    //     this.#tryFlood(x, y, startTile, newTile);
-
-    //     // bottom
-    //     x = centerX;
-    //     y = centerY + 1;
-    //     this.#tryFlood(x, y, startTile, newTile);
-
-    //     // left
-    //     x = centerX - 1;
-    //     y = centerY;
-    //     this.#tryFlood(x, y, startTile, newTile);
-        
-    //     // right
-    //     x = centerX + 1;
-    //     y = centerY;
-    //     this.#tryFlood(x, y, startTile, newTile);
-    // }
-
-    // #tryFlood(x, y, startTile, newTile)
-    // {
-    //     if(this.coordinateExists(x, y) && this.layer.tile(x, y).isIdentical(startTile))
-    //     {
-    //         this.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
-    //         this.setTile(newTile, x, y);
-    //         this.#newFloodCenter(x, y, startTile, newTile);
-    //     }
-    // }
 }
