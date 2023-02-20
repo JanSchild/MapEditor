@@ -71,35 +71,6 @@ class MapEditor
         });
     }
 
-    static export()
-    {
-        var exportData = MapEditor.currentMap.serialize();
-        var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.setAttribute('download', 'map.json');
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
-
-    static import(event)
-    {
-        var fileList = event.target.files;
-        if(fileList[0] !== undefined)
-        {
-            var file = fileList[0];
-            var reader = new FileReader();
-            reader.readAsText(file);
-            reader.onload = () => 
-            { 
-                MapEditor.currentMap = GameMap.deserialize(reader.result);
-                MapEditor.drawMap();
-            }
-        }
-    }
-
     static flood(x, y, newTile)
     {
         var tryFlood = function(x, y, startTile, newTile)
@@ -148,5 +119,34 @@ class MapEditor
         newFloodCenter(x, y, startTile, newTile);
 
         History.add(MapEditor.currentMap.tileChangeCollection);
+    }
+
+    static export()
+    {
+        var exportData = MapEditor.currentMap.serialize();
+        var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.setAttribute('download', 'map.json');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    static import(event)
+    {
+        var fileList = event.target.files;
+        if(fileList[0] !== undefined)
+        {
+            var file = fileList[0];
+            var reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = () => 
+            { 
+                MapEditor.currentMap = GameMap.deserialize(reader.result);
+                MapEditor.drawMap();
+            }
+        }
     }
 }
