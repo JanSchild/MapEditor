@@ -1,49 +1,8 @@
 class MapEditor
 {
-    static minWidth = 20;
-    static maxWidth = 1000;
-    
-    static minHeight = 15;
-    static maxHeight = 100;
-    
     static context = UI.canvas.map.getContext('2d');
 
-    static currentMap = new MapEditor('Sample map', 30, 20);
-
-    #name;
-    get name() { return this.#name; }
-    set name(value)
-    {
-        this.#name = value;
-        UI.textfield.mapName.value = this.name;
-    }
-
-    #width;
-    get width() { return this.#width; }
-    set width(value)
-    {
-        this.#width = limitValue(value, MapEditor.minWidth, MapEditor.maxWidth);
-        UI.canvas.map.width = Tileset.tileWidth * this.width;
-        UI.textfield.mapWidth.value = this.width;
-    }
-
-    #height;
-    get height() { return this.#height; }
-    set height(value)
-    {
-        this.#height = limitValue(value, MapEditor.minHeight, MapEditor.maxHeight);
-        UI.canvas.map.height = Tileset.tileHeight * this.height;
-        UI.textfield.mapHeight.value = this.height;
-    }
-
-    constructor(name, width, height)
-    {
-        this.layer = new Layer(height);
-
-        this.name = name;
-        this.width = width;
-        this.height = height;
-    }
+    static currentMap = new GameMap('Sample map', 30, 20);
 
     static clearCanvas()
     {

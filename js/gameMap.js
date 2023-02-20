@@ -18,20 +18,18 @@ class GameMap
     get width() { return this.#width; }
     set width(value)
     {
-        this.#width = limitValue(value, GameMap.minWidth, MapEditor.maxWidth);
+        this.#width = limitValue(value, GameMap.minWidth, GameMap.maxWidth);
         UI.canvas.map.width = Tileset.tileWidth * this.width;
         UI.textfield.mapWidth.value = this.width;
-        MapEditor.drawMap();
     }
 
     #height;
     get height() { return this.#height; }
     set height(value)
     {
-        this.#height = limitValue(value, GameMap.minHeight, MapEditor.maxHeight);
+        this.#height = limitValue(value, GameMap.minHeight, GameMap.maxHeight);
         UI.canvas.map.height = Tileset.tileHeight * this.height;
         UI.textfield.mapHeight.value = this.height;
-        MapEditor.drawMap();
     }
 
     constructor(name, width, height)
