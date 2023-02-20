@@ -43,14 +43,12 @@ class GameMap
 
     serialize()
     {
-        var exportData =
-        {
+        return {
             name: this.name,
             width: this.width,
             height: this.height,
             layer: this.layer
         };
-        exportJSON(exportData, 'map.json');
     }
 
     static deserialize(raw)

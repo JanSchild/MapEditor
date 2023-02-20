@@ -73,19 +73,20 @@ class MapEditor
 
     static export()
     {
-        var exportData =
-        {
-            name: MapEditor.currentMap.name,
-            width: MapEditor.currentMap.width,
-            height: MapEditor.currentMap.height,
-            layer: MapEditor.currentMap.layer
-        };
-        exportJSON(exportData, 'map.json');
+        var exportData = MapEditor.currentMap.serialize();
+        var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.setAttribute('download', 'map.json');
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
     static import(event)
     {
-        const fileList = event.target.files;
+        var fileList = event.target.files;
         if(fileList[0] !== undefined)
         {
             var file = fileList[0];
