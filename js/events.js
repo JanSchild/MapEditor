@@ -3,26 +3,26 @@ UI.canvas.tileset.addEventListener('click', Tileset.selectTile);
 UI.dropdown.tilesets.addEventListener('change', Tileset.change);
 
 // MAP
-UI.button.saveMap.addEventListener('click', GameMap.export);
-UI.filechooser.mapUpload.addEventListener('change', GameMap.import);
+UI.button.saveMap.addEventListener('click', MapEditor.export);
+UI.filechooser.mapUpload.addEventListener('change', MapEditor.import);
 
 UI.textfield.mapName.addEventListener('change', (event) =>
 {
-    GameMap.current.name = event.target.value;
+    MapEditor.current.name = event.target.value;
 });
 
 UI.textfield.mapWidth.addEventListener('change', (event) =>
 {
     var newValue = parseInt(event.target.value);
-    if(isNaN(newValue)) { UI.textfield.mapWidth.value = GameMap.current.width; return; }
-    GameMap.current.width = newValue;
+    if(isNaN(newValue)) { UI.textfield.mapWidth.value = MapEditor.current.width; return; }
+    MapEditor.current.width = newValue;
 });
 
 UI.textfield.mapHeight.addEventListener('change', (event) =>
 {
     var newValue = parseInt(event.target.value);
-    if(isNaN(newValue)) { UI.textfield.mapHeight.value = GameMap.current.height; return; }
-    GameMap.current.height = newValue;
+    if(isNaN(newValue)) { UI.textfield.mapHeight.value = MapEditor.current.height; return; }
+    MapEditor.current.height = newValue;
 });
 
 // MAPPING

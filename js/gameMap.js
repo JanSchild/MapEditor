@@ -1,4 +1,4 @@
-class GameMap
+class MapEditor
 {
     static minWidth = 20;
     static maxWidth = 1000;
@@ -8,7 +8,7 @@ class GameMap
     
     static context = UI.canvas.map.getContext('2d');
 
-    static current = new GameMap('Sample map', 30, 20);
+    static current = new MapEditor('Sample map', 30, 20);
 
     #name;
     get name() { return this.#name; }
@@ -22,7 +22,7 @@ class GameMap
     get width() { return this.#width; }
     set width(value)
     {
-        this.#width = limitValue(value, GameMap.minWidth, GameMap.maxWidth);
+        this.#width = limitValue(value, MapEditor.minWidth, MapEditor.maxWidth);
         UI.canvas.map.width = Tileset.tileWidth * this.width;
         UI.textfield.mapWidth.value = this.width;
         this.drawMap();
@@ -32,7 +32,7 @@ class GameMap
     get height() { return this.#height; }
     set height(value)
     {
-        this.#height = limitValue(value, GameMap.minHeight, GameMap.maxHeight);
+        this.#height = limitValue(value, MapEditor.minHeight, MapEditor.maxHeight);
         UI.canvas.map.height = Tileset.tileHeight * this.height;
         UI.textfield.mapHeight.value = this.height;
         this.drawMap();
@@ -49,23 +49,23 @@ class GameMap
 
     static clearCanvas()
     {
-        GameMap.context.clearRect(0, 0, UI.canvas.map.width, UI.canvas.map.height);
+        MapEditor.context.clearRect(0, 0, UI.canvas.map.width, UI.canvas.map.height);
     }
 
     static clearTile(x, y)
     {
-        GameMap.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
-        GameMap.current.layer.unsetTile(x, y);
+        MapEditor.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
+        MapEditor.current.layer.unsetTile(x, y);
     }
       
     static setTile(newTile, x, y) 
     {
-        if(!GameMap.coordinateExists(x, y)) return;
-        if(GameMap.current.layer.tile(x, y).isIdentical(newTile)) return;
+        if(!MapEditor.coordinateExists(x, y)) return;
+        if(MapEditor.current.layer.tile(x, y).isIdentical(newTile)) return;
         
-        GameMap.clearTile(x, y);
-        GameMap.current.layer.setTile(newTile, x, y);
-        GameMap.drawTile(newTile, x, y);
+        MapEditor.clearTile(x, y);
+        MapEditor.current.layer.setTile(newTile, x, y);
+        MapEditor.drawTile(newTile, x, y);
     }
 
     static drawTile(newTile, map_x, map_y)
@@ -92,13 +92,13 @@ class GameMap
         var source_x = newTile.x * Tileset.tileWidth;
         var source_y = newTile.y * Tileset.tileHeight;
 
-        GameMap.context.drawImage(tileset_image, source_x, source_y, Tileset.tileWidth, Tileset.tileHeight, 
+        MapEditor.context.drawImage(tileset_image, source_x, source_y, Tileset.tileWidth, Tileset.tileHeight, 
             draw_x, draw_y, Tileset.tileWidth, Tileset.tileHeight);
     }
 
     drawMap() // TODO: make static
     {
-        GameMap.clearCanvas();
+        MapEditor.clearCanvas();
 
         this.layer.data.forEach((row, map_y) => 
         {
@@ -109,7 +109,7 @@ class GameMap
                 if(tile == null || tile.isEmpty()) return;
                 if(map_x >= this.width) return;
 
-                GameMap.drawTile(tile, map_x, map_y);
+                MapEditor.drawTile(tile, map_x, map_y);
             });
         });
     }
@@ -118,10 +118,10 @@ class GameMap
     {
         var exportData =
         {
-            name: GameMap.current.name,
-            width: GameMap.current.width,
-            height: GameMap.current.height,
-            layer: GameMap.current.layer
+            name: MapEditor.current.name,
+            width: MapEditor.current.width,
+            height: MapEditor.current.height,
+            layer: MapEditor.current.layer
         };
         exportJSON(exportData, 'map.json');
     }
@@ -137,10 +137,10 @@ class GameMap
             reader.onload = () => 
             { 
                 var importedMap = JSON.parse(reader.result);
-                GameMap.current = Object.assign(new GameMap, importedMap);
-                GameMap.current.layer = Object.assign(new Layer, importedMap.layer);
-                GameMap.current.layer.convertDataToTiles();
-                GameMap.current.drawMap();
+                MapEditor.current = Object.assign(new MapEditor, importedMap);
+                MapEditor.current.layer = Object.assign(new Layer, importedMap.layer);
+                MapEditor.current.layer.convertDataToTiles();
+                MapEditor.current.drawMap();
             }
         }
     }
@@ -148,9 +148,9 @@ class GameMap
     static coordinateExists(x, y)
     {
         if(x < 0) return false;
-        if(x >= GameMap.current.width) return false;
+        if(x >= MapEditor.current.width) return false;
         if(y < 0) return false;
-        if(y >= GameMap.current.height) return false;
+        if(y >= MapEditor.current.height) return false;
 
         return true;
     }
@@ -159,10 +159,10 @@ class GameMap
     {
         var tryFlood = function(x, y, startTile, newTile)
         {
-            if(GameMap.coordinateExists(x, y) && GameMap.current.layer.tile(x, y).isIdentical(startTile))
+            if(MapEditor.coordinateExists(x, y) && MapEditor.current.layer.tile(x, y).isIdentical(startTile))
             {
-                GameMap.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
-                GameMap.setTile(newTile, x, y);
+                MapEditor.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+                MapEditor.setTile(newTile, x, y);
                 newFloodCenter(x, y, startTile, newTile);
             }
         }
@@ -192,16 +192,16 @@ class GameMap
             tryFlood(x, y, startTile, newTile);
         }
     
-        var startTile = GameMap.current.layer.tile(x, y);
+        var startTile = MapEditor.current.layer.tile(x, y);
 
         if(newTile.isIdentical(startTile)) return;
         
-        GameMap.setTile(newTile, x, y);
-        GameMap.current.tileChangeCollection = new TileChangeCollection();
-        GameMap.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+        MapEditor.setTile(newTile, x, y);
+        MapEditor.current.tileChangeCollection = new TileChangeCollection();
+        MapEditor.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
         
         newFloodCenter(x, y, startTile, newTile);
 
-        History.add(GameMap.current.tileChangeCollection);
+        History.add(MapEditor.current.tileChangeCollection);
     }
 }
