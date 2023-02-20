@@ -8,7 +8,7 @@ class MapEditor
     
     static context = UI.canvas.map.getContext('2d');
 
-    static current = new MapEditor('Sample map', 30, 20);
+    static currentMap = new MapEditor('Sample map', 30, 20);
 
     #name;
     get name() { return this.#name; }
@@ -53,16 +53,16 @@ class MapEditor
     static clearTile(x, y)
     {
         MapEditor.context.clearRect(x * Tileset.tileWidth, y * Tileset.tileHeight, Tileset.tileWidth, Tileset.tileHeight);
-        MapEditor.current.layer.unsetTile(x, y);
+        MapEditor.currentMap.layer.unsetTile(x, y);
     }
       
     static setTile(newTile, x, y) 
     {
         if(!MapEditor.coordinateExists(x, y)) return;
-        if(MapEditor.current.layer.tile(x, y).isIdentical(newTile)) return;
+        if(MapEditor.currentMap.layer.tile(x, y).isIdentical(newTile)) return;
         
         MapEditor.clearTile(x, y);
-        MapEditor.current.layer.setTile(newTile, x, y);
+        MapEditor.currentMap.layer.setTile(newTile, x, y);
         MapEditor.drawTile(newTile, x, y);
     }
 
@@ -98,14 +98,14 @@ class MapEditor
     {
         MapEditor.clearCanvas();
 
-        MapEditor.current.layer.data.forEach((row, map_y) => 
+        MapEditor.currentMap.layer.data.forEach((row, map_y) => 
         {
-            if(map_y >= MapEditor.current.height) return;
+            if(map_y >= MapEditor.currentMap.height) return;
 
             row.forEach((tile, map_x) =>
             {
                 if(tile == null || tile.isEmpty()) return;
-                if(map_x >= MapEditor.current.width) return;
+                if(map_x >= MapEditor.currentMap.width) return;
 
                 MapEditor.drawTile(tile, map_x, map_y);
             });
@@ -116,10 +116,10 @@ class MapEditor
     {
         var exportData =
         {
-            name: MapEditor.current.name,
-            width: MapEditor.current.width,
-            height: MapEditor.current.height,
-            layer: MapEditor.current.layer
+            name: MapEditor.currentMap.name,
+            width: MapEditor.currentMap.width,
+            height: MapEditor.currentMap.height,
+            layer: MapEditor.currentMap.layer
         };
         exportJSON(exportData, 'map.json');
     }
@@ -135,9 +135,9 @@ class MapEditor
             reader.onload = () => 
             { 
                 var importedMap = JSON.parse(reader.result);
-                MapEditor.current = Object.assign(new MapEditor, importedMap);
-                MapEditor.current.layer = Object.assign(new Layer, importedMap.layer);
-                MapEditor.current.layer.convertDataToTiles();
+                MapEditor.currentMap = Object.assign(new MapEditor, importedMap);
+                MapEditor.currentMap.layer = Object.assign(new Layer, importedMap.layer);
+                MapEditor.currentMap.layer.convertDataToTiles();
                 MapEditor.drawMap();
             }
         }
@@ -146,9 +146,9 @@ class MapEditor
     static coordinateExists(x, y)
     {
         if(x < 0) return false;
-        if(x >= MapEditor.current.width) return false;
+        if(x >= MapEditor.currentMap.width) return false;
         if(y < 0) return false;
-        if(y >= MapEditor.current.height) return false;
+        if(y >= MapEditor.currentMap.height) return false;
 
         return true;
     }
@@ -157,9 +157,9 @@ class MapEditor
     {
         var tryFlood = function(x, y, startTile, newTile)
         {
-            if(MapEditor.coordinateExists(x, y) && MapEditor.current.layer.tile(x, y).isIdentical(startTile))
+            if(MapEditor.coordinateExists(x, y) && MapEditor.currentMap.layer.tile(x, y).isIdentical(startTile))
             {
-                MapEditor.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+                MapEditor.currentMap.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
                 MapEditor.setTile(newTile, x, y);
                 newFloodCenter(x, y, startTile, newTile);
             }
@@ -190,16 +190,16 @@ class MapEditor
             tryFlood(x, y, startTile, newTile);
         }
     
-        var startTile = MapEditor.current.layer.tile(x, y);
+        var startTile = MapEditor.currentMap.layer.tile(x, y);
 
         if(newTile.isIdentical(startTile)) return;
         
         MapEditor.setTile(newTile, x, y);
-        MapEditor.current.tileChangeCollection = new TileChangeCollection();
-        MapEditor.current.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+        MapEditor.currentMap.tileChangeCollection = new TileChangeCollection();
+        MapEditor.currentMap.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
         
         newFloodCenter(x, y, startTile, newTile);
 
-        History.add(MapEditor.current.tileChangeCollection);
+        History.add(MapEditor.currentMap.tileChangeCollection);
     }
 }

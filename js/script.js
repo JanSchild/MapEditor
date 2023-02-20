@@ -7,7 +7,7 @@ function placeTileOnMap(event)
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
         var new_tile = new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY);
-        var old_tile = MapEditor.current.layer.tile(map_x, map_y);
+        var old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
 
         if(new_tile.isIdentical(old_tile)) return;
 

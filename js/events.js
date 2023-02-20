@@ -8,22 +8,22 @@ UI.filechooser.mapUpload.addEventListener('change', MapEditor.import);
 
 UI.textfield.mapName.addEventListener('change', (event) =>
 {
-    MapEditor.current.name = event.target.value;
+    MapEditor.currentMap.name = event.target.value;
 });
 
 UI.textfield.mapWidth.addEventListener('change', (event) =>
 {
     var newValue = parseInt(event.target.value);
-    if(isNaN(newValue)) { UI.textfield.mapWidth.value = MapEditor.current.width; return; }
-    MapEditor.current.width = newValue;
+    if(isNaN(newValue)) { UI.textfield.mapWidth.value = MapEditor.currentMap.width; return; }
+    MapEditor.currentMap.width = newValue;
     MapEditor.drawMap();
 });
 
 UI.textfield.mapHeight.addEventListener('change', (event) =>
 {
     var newValue = parseInt(event.target.value);
-    if(isNaN(newValue)) { UI.textfield.mapHeight.value = MapEditor.current.height; return; }
-    MapEditor.current.height = newValue;
+    if(isNaN(newValue)) { UI.textfield.mapHeight.value = MapEditor.currentMap.height; return; }
+    MapEditor.currentMap.height = newValue;
     MapEditor.drawMap();
 });
 
