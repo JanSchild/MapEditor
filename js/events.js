@@ -16,6 +16,7 @@ UI.textfield.mapWidth.addEventListener('change', (event) =>
     var newValue = parseInt(event.target.value);
     if(isNaN(newValue)) { UI.textfield.mapWidth.value = MapEditor.current.width; return; }
     MapEditor.current.width = newValue;
+    MapEditor.drawMap();
 });
 
 UI.textfield.mapHeight.addEventListener('change', (event) =>
@@ -23,6 +24,7 @@ UI.textfield.mapHeight.addEventListener('change', (event) =>
     var newValue = parseInt(event.target.value);
     if(isNaN(newValue)) { UI.textfield.mapHeight.value = MapEditor.current.height; return; }
     MapEditor.current.height = newValue;
+    MapEditor.drawMap();
 });
 
 // MAPPING

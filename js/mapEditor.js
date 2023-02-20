@@ -25,7 +25,6 @@ class MapEditor
         this.#width = limitValue(value, MapEditor.minWidth, MapEditor.maxWidth);
         UI.canvas.map.width = Tileset.tileWidth * this.width;
         UI.textfield.mapWidth.value = this.width;
-        this.drawMap();
     }
 
     #height;
@@ -35,7 +34,6 @@ class MapEditor
         this.#height = limitValue(value, MapEditor.minHeight, MapEditor.maxHeight);
         UI.canvas.map.height = Tileset.tileHeight * this.height;
         UI.textfield.mapHeight.value = this.height;
-        this.drawMap();
     }
 
     constructor(name, width, height)
@@ -96,18 +94,18 @@ class MapEditor
             draw_x, draw_y, Tileset.tileWidth, Tileset.tileHeight);
     }
 
-    drawMap() // TODO: make static
+    static drawMap()
     {
         MapEditor.clearCanvas();
 
-        this.layer.data.forEach((row, map_y) => 
+        MapEditor.current.layer.data.forEach((row, map_y) => 
         {
-            if(map_y >= this.height) return;
+            if(map_y >= MapEditor.current.height) return;
 
             row.forEach((tile, map_x) =>
             {
                 if(tile == null || tile.isEmpty()) return;
-                if(map_x >= this.width) return;
+                if(map_x >= MapEditor.current.width) return;
 
                 MapEditor.drawTile(tile, map_x, map_y);
             });
@@ -140,7 +138,7 @@ class MapEditor
                 MapEditor.current = Object.assign(new MapEditor, importedMap);
                 MapEditor.current.layer = Object.assign(new Layer, importedMap.layer);
                 MapEditor.current.layer.convertDataToTiles();
-                MapEditor.current.drawMap();
+                MapEditor.drawMap();
             }
         }
     }
