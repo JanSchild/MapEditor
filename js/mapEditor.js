@@ -17,7 +17,7 @@ class MapEditor
       
     static setTile(newTile, x, y) 
     {
-        if(!MapEditor.coordinateExists(x, y)) return;
+        if(!MapEditor.currentMap.coordinateExists(x, y)) return;
         if(MapEditor.currentMap.layer.tile(x, y).isIdentical(newTile)) return;
         
         MapEditor.clearTile(x, y);
@@ -100,21 +100,11 @@ class MapEditor
         }
     }
 
-    static coordinateExists(x, y)
-    {
-        if(x < 0) return false;
-        if(x >= MapEditor.currentMap.width) return false;
-        if(y < 0) return false;
-        if(y >= MapEditor.currentMap.height) return false;
-
-        return true;
-    }
-
     static flood(x, y, newTile)
     {
         var tryFlood = function(x, y, startTile, newTile)
         {
-            if(MapEditor.coordinateExists(x, y) && MapEditor.currentMap.layer.tile(x, y).isIdentical(startTile))
+            if(MapEditor.currentMap.coordinateExists(x, y) && MapEditor.currentMap.layer.tile(x, y).isIdentical(startTile))
             {
                 MapEditor.currentMap.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
                 MapEditor.setTile(newTile, x, y);
