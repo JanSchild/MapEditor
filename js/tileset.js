@@ -1,9 +1,9 @@
 class Tileset
 {
-    constructor(filename, name)
+    constructor(filename, displayName)
     {
         this.filename = filename;
-        this.name = name;
+        this.displayName = displayName;
         this.image = new Image();
     }
     

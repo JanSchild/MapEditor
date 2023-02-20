@@ -1,7 +1,7 @@
 class Tile
 {
     /**
-     * @param {string} filename - name of tileset.
+     * @param {string} filename - filename of tileset.
      * @param {number} x - position in tileset.
      * @param {number} y - position in tileset.
      */
