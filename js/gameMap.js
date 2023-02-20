@@ -43,11 +43,21 @@ class GameMap
 
     serialize()
     {
-        return 0;
+        var exportData =
+        {
+            name: this.name,
+            width: this.width,
+            height: this.height,
+            layer: this.layer
+        };
+        exportJSON(exportData, 'map.json');
     }
 
-    deserialize()
+    static deserialize(raw)
     {
-        return 0;
-    }
-}
+        var mapJSON = JSON.parse(raw);
+        var map = Object.assign(new GameMap, mapJSON);
+        map.layer = Object.assign(new Layer, mapJSON.layer);
+        map.layer.convertDataToTiles();
+        return map;
+    }}

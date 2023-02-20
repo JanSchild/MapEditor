@@ -93,10 +93,7 @@ class MapEditor
             reader.readAsText(file);
             reader.onload = () => 
             { 
-                var importedMap = JSON.parse(reader.result);
-                MapEditor.currentMap = Object.assign(new MapEditor, importedMap);
-                MapEditor.currentMap.layer = Object.assign(new Layer, importedMap.layer);
-                MapEditor.currentMap.layer.convertDataToTiles();
+                MapEditor.currentMap = GameMap.deserialize(reader.result);
                 MapEditor.drawMap();
             }
         }
