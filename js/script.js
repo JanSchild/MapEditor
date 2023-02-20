@@ -1,5 +1,5 @@
 // MAP
-function placeTileOnMap(event)
+function mapClick(event)
 { 
     // check if left mouse button is held down
     if(event.buttons == 1)

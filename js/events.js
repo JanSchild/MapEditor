@@ -28,8 +28,8 @@ UI.textfield.mapHeight.addEventListener('change', (event) =>
 });
 
 // MAPPING
-UI.canvas.map.addEventListener('mousedown', placeTileOnMap);
-UI.canvas.map.addEventListener('mousemove', placeTileOnMap);
+UI.canvas.map.addEventListener('mousedown', mapClick);
+UI.canvas.map.addEventListener('mousemove', mapClick);
 
 // ACTIVE KEYS
 var activeKeys = new Set();
