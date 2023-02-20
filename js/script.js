@@ -26,7 +26,10 @@ function placeTileOnMap(event)
     }
 }
 
-// TILESET
-Tileset.generateDropdownMenu();
-Tileset.loadTilesets();
+function startUp()
+{
+    Tileset.generateDropdownMenu();
+    Tileset.loadTilesets();
+}
 
+startUp();
