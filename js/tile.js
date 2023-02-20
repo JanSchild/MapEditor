@@ -1,8 +1,10 @@
 class Tile
 {
-    // filename of tileset
-    // x position in tileset
-    // y position in tileset
+    /**
+     * @param {string} filename - name of tileset.
+     * @param {number} x - position in tileset.
+     * @param {number} y - position in tileset.
+     */
     constructor(filename, x, y)
     {
         this.filename = filename;
