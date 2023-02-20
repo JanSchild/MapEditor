@@ -77,7 +77,7 @@ class MapEditor
         {
             if(MapEditor.currentMap.coordinateExists(x, y) && MapEditor.currentMap.layer.tile(x, y).isIdentical(startTile))
             {
-                MapEditor.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+                History.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
                 MapEditor.setTile(newTile, x, y);
                 newFloodCenter(x, y, startTile, newTile);
             }
@@ -113,12 +113,12 @@ class MapEditor
         if(newTile.isIdentical(startTile)) return;
         
         MapEditor.setTile(newTile, x, y);
-        MapEditor.tileChangeCollection = new TileChangeCollection();
-        MapEditor.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
+        History.tileChangeCollection = new TileChangeCollection();
+        History.tileChangeCollection.add(new TileChange(x, y, startTile, newTile));
         
         newFloodCenter(x, y, startTile, newTile);
 
-        History.add(MapEditor.tileChangeCollection);
+        History.add(History.tileChangeCollection);
     }
 
     static export()
