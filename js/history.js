@@ -3,18 +3,18 @@ class History
     static previous = new Array();
     static next = new Array();
 
-    static tileChangeCollection = new TileChangeCollection();
+    static tileChangeCollection = new Array();
 
     static addToCollection(someChange)
     {
-        History.tileChangeCollection.add(someChange);
+        History.tileChangeCollection.push(someChange);
     }
 
     static submitCollection()
     {
         History.next = new Array();
         History.previous.push(History.tileChangeCollection);
-        this.tileChangeCollection = new TileChangeCollection();
+        History.tileChangeCollection = new Array();
     }
 
     static undo()
@@ -23,7 +23,10 @@ class History
         if(lastChange != undefined)
         {
             History.next.unshift(lastChange);
-            lastChange.changeToOldTiles();
+            lastChange.forEach((tileChange) =>
+            {
+                MapEditor.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY);
+            });
         }
     }
 
@@ -33,7 +36,10 @@ class History
         if(nextChange != undefined)
         {
             History.previous.push(nextChange);
-            nextChange.changeToNewTiles();
+            nextChange.forEach((tileChange) =>
+            {
+                MapEditor.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY);
+            });
         }
     }
 }
