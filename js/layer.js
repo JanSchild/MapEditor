@@ -24,7 +24,10 @@ class Layer
     setTile(tile, x, y)
     {
         this.#expandToRows(y + 1);
-        this.data[y][x] = tile;
+        if(tile != null)
+            this.data[y][x] = new Tile(tile.filename, tile.x, tile.y);
+        else
+            this.data[y][x] = null;
     }
 
     unsetTile(x, y)

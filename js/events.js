@@ -38,7 +38,7 @@ function mapClick(event)
     {
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
-        var new_tile = TilePicker.currentTile();
+        var new_tile = TilePicker.currentTile;
         var old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
 
         if(new_tile.isIdentical(old_tile)) return;
