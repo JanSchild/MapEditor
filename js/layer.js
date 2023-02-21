@@ -25,9 +25,9 @@ class Layer
     {
         this.#expandToRows(y + 1);
         if(tile != null)
-            this.data[y][x] = new Tile(tile.filename, tile.x, tile.y);
+            this.data[y][x] = Object.assign(new Tile, tile);
         else
-            this.data[y][x] = null;
+            this.data[y][x] = Tile.emptyTile();;
     }
 
     unsetTile(x, y)
@@ -44,10 +44,7 @@ class Layer
         {
             row.forEach((tile, map_x) =>
             {
-                if(tile == null || tile.filename == null)
-                    this.data[map_y][map_x] = Tile.emptyTile();
-                else
-                    this.data[map_y][map_x] = Object.assign(new Tile, tile);
+                this.setTile(tile, map_x, map_y);
             });
         });
     }
