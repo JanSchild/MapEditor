@@ -1,5 +1,5 @@
 (function startUp()
 {
-    Tileset.generateDropdownMenu();
-    Tileset.loadTilesets();
+    TilePicker.generateDropdownMenu();
+    TilePicker.loadTilesets();
 })();

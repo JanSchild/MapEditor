@@ -29,19 +29,19 @@ class MapEditor
     {
         if(newTile.isEmpty()) return;
 
-        if(!Tileset.filenames.has(newTile.filename))
+        if(!TilePicker.filenames.has(newTile.filename))
         {
             console.error(`${newTile.filename} not found.`);
             return;
         }
 
-        if(!Tileset.loadedFiles.has(newTile.filename))
+        if(!TilePicker.loadedFiles.has(newTile.filename))
         {
             console.error(`${newTile.filename} has not loaded yet.`);
             return;
         }
 
-        var tileset_image = Tileset.images[newTile.filename];
+        var tileset_image = TilePicker.images[newTile.filename];
 
         var draw_x = map_x * Tileset.tileWidth;
         var draw_y = map_y * Tileset.tileHeight;

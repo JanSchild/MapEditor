@@ -1,6 +1,6 @@
 // TILESET
-UI.canvas.tileset.addEventListener('click', Tileset.selectTile);
-UI.dropdown.tilesets.addEventListener('change', Tileset.change);
+UI.canvas.tileset.addEventListener('click', TilePicker.selectTile);
+UI.dropdown.tilesets.addEventListener('change', TilePicker.change);
 
 // MAP
 UI.button.saveMap.addEventListener('click', MapEditor.export);
@@ -38,7 +38,7 @@ function mapClick(event)
     {
         var map_x = parseInt(event.offsetX / Tileset.tileWidth);
         var map_y = parseInt(event.offsetY / Tileset.tileHeight);
-        var new_tile = new Tile(Tileset.current, TilePicker.selectedX, TilePicker.selectedY);
+        var new_tile = new Tile(TilePicker.current, TilePicker.selectedX, TilePicker.selectedY);
         var old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
 
         if(new_tile.isIdentical(old_tile)) return;
