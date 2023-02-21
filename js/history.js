@@ -3,10 +3,18 @@ class History
     static previous = new Array();
     static next = new Array();
 
-    static add(someChange)
+    static tileChangeCollection = new TileChangeCollection();
+
+    static addToCollection(someChange)
+    {
+        History.tileChangeCollection.add(someChange);
+    }
+
+    static submitCollection()
     {
         History.next = new Array();
-        History.previous.push(someChange);
+        History.previous.push(History.tileChangeCollection);
+        this.tileChangeCollection = new TileChangeCollection();
     }
 
     static undo()
@@ -15,11 +23,7 @@ class History
         if(lastChange != undefined)
         {
             History.next.unshift(lastChange);
-            console.log(`Undo last change: ${lastChange}`);
-            console.log(`Type of change: ${lastChange.constructor.name}`);
-
-            if(lastChange.constructor.name == 'TileChangeCollection')
-                lastChange.changeToOldTiles();
+            lastChange.changeToOldTiles();
         }
     }
 
@@ -29,11 +33,7 @@ class History
         if(nextChange != undefined)
         {
             History.previous.push(nextChange);
-            console.log(`Redo next change: ${nextChange}`);
-            console.log(`Type of change: ${nextChange.constructor.name}`);
-
-            if(nextChange.constructor.name == 'TileChangeCollection')
-                nextChange.changeToNewTiles();
+            nextChange.changeToNewTiles();
         }
     }
 }
