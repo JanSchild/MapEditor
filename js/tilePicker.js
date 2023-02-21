@@ -5,11 +5,11 @@ class TilePicker
     static filenames = new Set(['tilesets/floor.png', 'tilesets/forest.png', 'tilesets/forest_dead.png']);
     static loadedFiles = new Set();
 
-    static current = TilePicker.filenames.values().next().value;
-    static currentTile() { return new Tile(TilePicker.current, TilePicker.selectedX, TilePicker.selectedY ) }
+    static currentFilename = TilePicker.filenames.values().next().value;
+    static currentTile() { return new Tile(TilePicker.currentFilename, TilePicker.selectedX, TilePicker.selectedY ) }
 
     static images = new Array();
-    
+
     static selectedX = 0;
     static selectedY = 0;   
 
@@ -36,7 +36,7 @@ class TilePicker
 
     static show(filename) 
     {
-        TilePicker.current = filename;
+        TilePicker.currentFilename = filename;
         Tileset.image = TilePicker.images[filename];
     
         UI.canvas.tileset.width = Tileset.image.naturalWidth;
@@ -70,8 +70,8 @@ class TilePicker
             image.addEventListener("load", (event) =>
             {
                 TilePicker.loadedFiles.add(filename);
-                if(filename == TilePicker.current)
-                    TilePicker.show(TilePicker.current);
+                if(filename == TilePicker.currentFilename)
+                    TilePicker.show(TilePicker.currentFilename);
             });
             TilePicker.images[filename] = image;
         });
@@ -82,7 +82,7 @@ class TilePicker
         TilePicker.filenames.forEach(filename => 
         {
             var option = document.createElement('option');
-            if(filename == TilePicker.current)
+            if(filename == TilePicker.currentFilename)
                 option.selected = true;
             option.value = filename;
             option.innerHTML = filename;
