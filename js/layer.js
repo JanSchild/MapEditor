@@ -35,6 +35,9 @@ class Layer
         this.setTile(null, x, y);
     }
 
+    /**
+     * This function deserializes layer data from a JSON file.
+     */    
     convertDataToTiles()
     {
         this.data.forEach((row, map_y) => 
