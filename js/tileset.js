@@ -17,13 +17,10 @@ class Tileset
     static tileWidth = 32;
     static tileHeight = 32;
 
-    static selectedX = 0;
-    static selectedY = 0;    
-
     static context = UI.canvas.tileset.getContext('2d');
     static dropdownMenu = document.getElementById('tileset-chooser');
 
-    static currentTile() { return new Tile(Tileset.current, Tileset.selectedX, Tileset.selectedY ) }
+    static currentTile() { return new Tile(Tileset.current, TilePicker.selectedX, TilePicker.selectedY ) }
 
     static draw()
     {
@@ -43,8 +40,8 @@ class Tileset
         UI.canvas.tileset.width = Tileset.image.naturalWidth;
         UI.canvas.tileset.height = Tileset.image.naturalHeight;
     
-        Tileset.selectedX = 0;
-        Tileset.selectedY = 0;
+        TilePicker.selectedX = 0;
+        TilePicker.selectedY = 0;
         
         Tileset.draw();
         Tileset.drawSelector();
@@ -53,8 +50,8 @@ class Tileset
     static drawSelector()
     {
         Tileset.context.beginPath();
-        Tileset.context.rect(Tileset.selectedX * Tileset.tileWidth, 
-                                Tileset.selectedY * Tileset.tileHeight, 
+        Tileset.context.rect(TilePicker.selectedX * Tileset.tileWidth, 
+                                TilePicker.selectedY * Tileset.tileHeight, 
                                 Tileset.tileWidth, Tileset.tileHeight);
         Tileset.context.closePath();
         Tileset.context.strokeStyle = "black";
@@ -67,8 +64,8 @@ class Tileset
 
         Tileset.draw();
 
-        Tileset.selectedX = parseInt(event.offsetX / Tileset.tileWidth);
-        Tileset.selectedY = parseInt(event.offsetY / Tileset.tileHeight);
+        TilePicker.selectedX = parseInt(event.offsetX / Tileset.tileWidth);
+        TilePicker.selectedY = parseInt(event.offsetY / Tileset.tileHeight);
 
         Tileset.drawSelector();
     }
