@@ -8,6 +8,7 @@ class TilePicker
     static currentFilename = TilePicker.filenames.values().next().value;
     static currentTile() { return new Tile(TilePicker.currentFilename, TilePicker.selectedX, TilePicker.selectedY ) }
 
+    static image;
     static images = new Array();
 
     static selectedX = 0;
@@ -15,7 +16,7 @@ class TilePicker
 
     static draw()
     {
-        TilePicker.context.drawImage(Tileset.image, 0, 0);
+        TilePicker.context.drawImage(TilePicker.image, 0, 0);
     }
 
     static drawSelector()
@@ -37,10 +38,10 @@ class TilePicker
     static show(filename) 
     {
         TilePicker.currentFilename = filename;
-        Tileset.image = TilePicker.images[filename];
+        TilePicker.image = TilePicker.images[filename];
     
-        UI.canvas.tileset.width = Tileset.image.naturalWidth;
-        UI.canvas.tileset.height = Tileset.image.naturalHeight;
+        UI.canvas.tileset.width = TilePicker.image.naturalWidth;
+        UI.canvas.tileset.height = TilePicker.image.naturalHeight;
     
         TilePicker.selectedX = 0;
         TilePicker.selectedY = 0;
