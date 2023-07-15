@@ -3,9 +3,9 @@ A simple JavaScript based map editor.
 
 
  Features
- - import/export
+ - map import/export
  - history
- - flood tool
+ - fill tool
 
  Planned
  - picking multiple tiles at once
