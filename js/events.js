@@ -3,9 +3,6 @@ UI.canvas.tileset.addEventListener('click', TilePicker.selectTile);
 UI.dropdown.tilesets.addEventListener('change', TilePicker.change);
 
 // MAP
-UI.button.saveMap.addEventListener('click', MapEditor.export);
-UI.filechooser.mapUpload.addEventListener('change', MapEditor.import);
-
 UI.textfield.mapName.addEventListener('change', (event) =>
 {
     MapEditor.currentMap.name = event.target.value;
@@ -26,6 +23,33 @@ UI.textfield.mapHeight.addEventListener('change', (event) =>
     MapEditor.currentMap.height = newValue;
     MapEditor.drawMap();
 });
+
+// FILE
+UI.button.saveMap.addEventListener('click', MapEditor.export);
+UI.filechooser.mapUpload.addEventListener('change', MapEditor.import);
+
+// TOOL
+UI.button.singleTool.addEventListener('change', changeTool);
+UI.button.fillTool.addEventListener('change', changeTool);
+
+function changeTool()
+{
+    var tool = document.querySelector("input[name='tool']:checked").value;
+
+    switch(tool)
+        {
+            case "single":
+                UI.canvas.map.style.cursor = 'auto';
+                break;
+            case "fill":
+                UI.canvas.map.style.cursor = 'copy';
+                break;
+        }
+}
+
+// HISTORY
+UI.button.undo.addEventListener('click', History.undo);
+UI.button.redo.addEventListener('click', History.redo);
 
 // MAPPING
 UI.canvas.map.addEventListener('mousedown', mapClick);
@@ -60,38 +84,7 @@ function mapClick(event)
     }
 }
 
-// TOOL
-UI.button.singleTool.addEventListener('change', changeTool);
-UI.button.fillTool.addEventListener('change', changeTool);
-
-function changeTool()
-{
-    var tool = document.querySelector("input[name='tool']:checked").value;
-
-    switch(tool)
-        {
-            case "single":
-                UI.canvas.map.style.cursor = 'auto';
-                break;
-            case "fill":
-                UI.canvas.map.style.cursor = 'copy';
-                break;
-        }
-}
-
 // ACTIVE KEYS
 var activeKeys = new Set();
 window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
 window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
-
-// HISTORY
-window.addEventListener('keydown', (event) => 
-{
-    if(event.ctrlKey && event.code == 'KeyZ')
-        History.undo();
-    if(event.ctrlKey && event.code == 'KeyY')
-        History.redo();
-});
-
-UI.button.undo.addEventListener('click', History.undo);
-UI.button.redo.addEventListener('click', History.redo);
