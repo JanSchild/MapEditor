@@ -1,4 +1,7 @@
 # MapEditor
+A simple JavaScript based map editor.
+
+
  Features
  - import/export
  - history
