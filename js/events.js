@@ -60,33 +60,7 @@ function mapClick(event)
     }
 }
 
-// ACTIVE KEYS
-var activeKeys = new Set();
-window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
-window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
-
-// HISTORY
-window.addEventListener('keydown', (event) => 
-{
-    if(event.ctrlKey && event.code == 'KeyZ')
-        History.undo();
-    if(event.ctrlKey && event.code == 'KeyY')
-        History.redo();
-});
-
-// CURSOR
-window.addEventListener('keydown', (event) =>
-{
-    if(event.code == 'KeyF')
-        UI.canvas.map.style.cursor = 'copy';
-});
-
-window.addEventListener('keyup', (event) =>
-{
-    if(event.code == 'KeyF')
-        UI.canvas.map.style.cursor = 'auto';
-});
-
+// TOOL
 UI.button.singleTool.addEventListener('change', changeTool);
 UI.button.fillTool.addEventListener('change', changeTool);
 
@@ -104,3 +78,17 @@ function changeTool()
                 break;
         }
 }
+
+// ACTIVE KEYS
+var activeKeys = new Set();
+window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
+window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });
+
+// HISTORY
+window.addEventListener('keydown', (event) => 
+{
+    if(event.ctrlKey && event.code == 'KeyZ')
+        History.undo();
+    if(event.ctrlKey && event.code == 'KeyY')
+        History.redo();
+});
