@@ -20,7 +20,7 @@ class History
 
     static undo()
     {
-        var lastChange = History.previous.pop();
+        let lastChange = History.previous.pop();
         if(lastChange != undefined)
         {
             History.next.unshift(lastChange);
@@ -34,7 +34,7 @@ class History
 
     static redo()
     {
-        var nextChange = History.next.shift();
+        let nextChange = History.next.shift();
         if(nextChange != undefined)
         {
             History.previous.push(nextChange);

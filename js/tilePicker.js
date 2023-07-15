@@ -62,7 +62,7 @@ class TilePicker
     {
         TilePicker.filenames.forEach(filename => 
         {
-            var image = new Image();
+            let image = new Image();
             image.src = filename;
             image.addEventListener("load", (event) =>
             {
@@ -78,7 +78,7 @@ class TilePicker
     {
         TilePicker.filenames.forEach(filename => 
         {
-            var option = document.createElement('option');
+            let option = document.createElement('option');
             if(filename == TilePicker.currentTile.filename)
                 option.selected = true;
             option.value = filename;

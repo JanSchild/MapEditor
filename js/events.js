@@ -10,7 +10,7 @@ UI.textfield.mapName.addEventListener('change', (event) =>
 
 UI.textfield.mapWidth.addEventListener('change', (event) =>
 {
-    var newValue = parseInt(event.target.value);
+    let newValue = parseInt(event.target.value);
     if(isNaN(newValue)) { UI.textfield.mapWidth.value = MapEditor.currentMap.width; return; }
     MapEditor.currentMap.width = newValue;
     MapEditor.drawMap();
@@ -18,7 +18,7 @@ UI.textfield.mapWidth.addEventListener('change', (event) =>
 
 UI.textfield.mapHeight.addEventListener('change', (event) =>
 {
-    var newValue = parseInt(event.target.value);
+    let newValue = parseInt(event.target.value);
     if(isNaN(newValue)) { UI.textfield.mapHeight.value = MapEditor.currentMap.height; return; }
     MapEditor.currentMap.height = newValue;
     MapEditor.drawMap();
@@ -34,7 +34,7 @@ UI.button.fillTool.addEventListener('change', changeTool);
 
 function changeTool()
 {
-    var tool = document.querySelector("input[name='tool']:checked").value;
+    let tool = document.querySelector("input[name='tool']:checked").value;
 
     switch(tool)
         {
@@ -60,14 +60,14 @@ function mapClick(event)
     // check if left mouse button is held down
     if(event.buttons == 1)
     {
-        var map_x = parseInt(event.offsetX / Tileset.tileWidth);
-        var map_y = parseInt(event.offsetY / Tileset.tileHeight);
-        var new_tile = TilePicker.currentTile;
-        var old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
+        let map_x = parseInt(event.offsetX / Tileset.tileWidth);
+        let map_y = parseInt(event.offsetY / Tileset.tileHeight);
+        let new_tile = TilePicker.currentTile;
+        let old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
 
         if(new_tile.isIdentical(old_tile)) return;
 
-        var tool = document.querySelector("input[name='tool']:checked").value;
+        let tool = document.querySelector("input[name='tool']:checked").value;
 
         switch(tool)
         {
@@ -85,6 +85,6 @@ function mapClick(event)
 }
 
 // ACTIVE KEYS
-var activeKeys = new Set();
+let activeKeys = new Set();
 window.addEventListener('keydown', (event) => { activeKeys.add(event.code) });
 window.addEventListener('keyup', (event) => { activeKeys.delete(event.code) });

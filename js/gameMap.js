@@ -63,8 +63,8 @@ class GameMap
 
     static deserialize(raw)
     {
-        var mapJSON = JSON.parse(raw);
-        var map = Object.assign(new GameMap, mapJSON);
+        let mapJSON = JSON.parse(raw);
+        let map = Object.assign(new GameMap, mapJSON);
         map.layer = Object.assign(new Layer, mapJSON.layer);
         map.layer.convertDataToTiles();
         return map;

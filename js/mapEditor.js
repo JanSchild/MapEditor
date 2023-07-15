@@ -41,13 +41,13 @@ class MapEditor
             return;
         }
 
-        var tileset_image = TilePicker.images[newTile.filename];
+        let tileset_image = TilePicker.images[newTile.filename];
 
-        var draw_x = map_x * Tileset.tileWidth;
-        var draw_y = map_y * Tileset.tileHeight;
+        let draw_x = map_x * Tileset.tileWidth;
+        let draw_y = map_y * Tileset.tileHeight;
         
-        var source_x = newTile.x * Tileset.tileWidth;
-        var source_y = newTile.y * Tileset.tileHeight;
+        let source_x = newTile.x * Tileset.tileWidth;
+        let source_y = newTile.y * Tileset.tileHeight;
 
         MapEditor.context.drawImage(tileset_image, source_x, source_y, Tileset.tileWidth, Tileset.tileHeight, 
             draw_x, draw_y, Tileset.tileWidth, Tileset.tileHeight);
@@ -73,7 +73,7 @@ class MapEditor
 
     static flood(x, y, newTile)
     {
-        var tryFlood = function(x, y, startTile, newTile)
+        let tryFlood = function(x, y, startTile, newTile)
         {
             if(MapEditor.currentMap.coordinateExists(x, y) && MapEditor.currentMap.layer.tile(x, y).isIdentical(startTile))
             {
@@ -83,9 +83,9 @@ class MapEditor
             }
         }
 
-        var newFloodCenter = function(centerX, centerY, startTile, newTile)
+        let newFloodCenter = function(centerX, centerY, startTile, newTile)
         {
-            var x, y;
+            let x, y;
     
             // top
             x = centerX;
@@ -108,7 +108,7 @@ class MapEditor
             tryFlood(x, y, startTile, newTile);
         }
     
-        var startTile = MapEditor.currentMap.layer.tile(x, y);
+        let startTile = MapEditor.currentMap.layer.tile(x, y);
 
         if(newTile.isIdentical(startTile)) return;
         
@@ -122,10 +122,10 @@ class MapEditor
 
     static export()
     {
-        var exportData = MapEditor.currentMap.serialize();
-        var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        let exportData = MapEditor.currentMap.serialize();
+        let blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
 
-        var a = document.createElement('a');
+        let a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.setAttribute('download', 'map.json');
         document.body.appendChild(a);
@@ -135,11 +135,11 @@ class MapEditor
 
     static import(event)
     {
-        var fileList = event.target.files;
+        let fileList = event.target.files;
         if(fileList[0] !== undefined)
         {
-            var file = fileList[0];
-            var reader = new FileReader();
+            let file = fileList[0];
+            let reader = new FileReader();
             reader.readAsText(file);
             reader.onload = () => 
             { 
