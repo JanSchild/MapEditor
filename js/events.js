@@ -43,17 +43,20 @@ function mapClick(event)
 
         if(new_tile.isIdentical(old_tile)) return;
 
-        // flood tool 
-        if(activeKeys.has('KeyF'))
-        {
-            MapEditor.flood(map_x, map_y, new_tile);
-            return;
-        }
-        // single tile
-        MapEditor.setTile(new_tile, map_x, map_y);  
+        var tool = document.querySelector("input[name='tool']:checked").value;
 
-        History.addToCollection(new TileChange(map_x, map_y, old_tile, new_tile));
-        History.submitCollection();
+        switch(tool)
+        {
+            case "single":
+                MapEditor.setTile(new_tile, map_x, map_y);  
+
+                History.addToCollection(new TileChange(map_x, map_y, old_tile, new_tile));
+                History.submitCollection();
+                break;
+            case "fill":
+                MapEditor.flood(map_x, map_y, new_tile);
+                break;
+        }
     }
 }
 
@@ -83,3 +86,21 @@ window.addEventListener('keyup', (event) =>
     if(event.code == 'KeyF')
         UI.canvas.map.style.cursor = 'auto';
 });
+
+UI.button.singleTool.addEventListener('change', changeTool);
+UI.button.fillTool.addEventListener('change', changeTool);
+
+function changeTool()
+{
+    var tool = document.querySelector("input[name='tool']:checked").value;
+
+    switch(tool)
+        {
+            case "single":
+                UI.canvas.map.style.cursor = 'auto';
+                break;
+            case "fill":
+                UI.canvas.map.style.cursor = 'copy';
+                break;
+        }
+}

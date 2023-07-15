@@ -2,7 +2,10 @@ class UI
 {
     static button = 
     {
-        saveMap: document.getElementById('map-download')
+        saveMap: document.getElementById('map-download'),
+        singleTool: document.getElementById('tool-single'),
+        fillTool: document.getElementById('tool-fill')
+
     };
 
     static textfield = 
