@@ -92,3 +92,6 @@ window.addEventListener('keydown', (event) =>
     if(event.ctrlKey && event.code == 'KeyY')
         History.redo();
 });
+
+UI.button.undo.addEventListener('click', History.undo);
+UI.button.redo.addEventListener('click', History.redo);
