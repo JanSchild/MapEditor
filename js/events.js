@@ -69,7 +69,7 @@ function mapClick(event)
     {
         let map_x = parseInt(event.offsetX / Tileset.tileWidth);
         let map_y = parseInt(event.offsetY / Tileset.tileHeight);
-        let new_tile = TilePicker.currentTile;
+        let new_tile = Object.assign(Tile.emptyTile(), TilePicker.currentTile);
         let old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
 
         let tool = document.querySelector("input[name='tool']:checked").value;
