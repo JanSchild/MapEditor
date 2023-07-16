@@ -59,10 +59,10 @@ UI.button.undo.addEventListener('click', History.undo);
 UI.button.redo.addEventListener('click', History.redo);
 
 // MAPPING
-UI.canvas.map.addEventListener('mousedown', mapClick);
-UI.canvas.map.addEventListener('mousemove', mapClick);
+UI.canvas.map.addEventListener('mousedown', setTile);
+UI.canvas.map.addEventListener('mousemove', setTile);
 
-function mapClick(event)
+function setTile(event)
 { 
     // check if left mouse button is held down
     if(event.buttons == 1)
