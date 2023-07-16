@@ -61,6 +61,7 @@ UI.button.redo.addEventListener('click', History.redo);
 // MAPPING
 UI.canvas.map.addEventListener('mousedown', setTile);
 UI.canvas.map.addEventListener('mousemove', setTile);
+document.addEventListener('mouseup', () => { History.submitCollection() });
 
 function setTile(event)
 { 
@@ -82,7 +83,6 @@ function setTile(event)
                 MapEditor.setTile(new_tile, map_x, map_y);  
 
                 History.addToCollection(new TileChange(map_x, map_y, old_tile, new_tile));
-                History.submitCollection();
                 break;
             case "fill":
                 MapEditor.flood(map_x, map_y, new_tile);
