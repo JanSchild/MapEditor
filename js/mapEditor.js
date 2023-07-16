@@ -19,7 +19,7 @@ class MapEditor
     {
         if(!MapEditor.currentMap.coordinateExists(x, y)) return;
         if(MapEditor.currentMap.layer.tile(x, y).isIdentical(newTile)) return;
-        
+
         MapEditor.clearTile(x, y);
         MapEditor.currentMap.layer.setTile(newTile, x, y);
         MapEditor.drawTile(newTile, x, y);

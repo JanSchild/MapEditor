@@ -19,7 +19,7 @@ class Tile
 
     isEmpty()
     {
-        return this.filename == 'empty' || this.filename == '' || this.filename == undefined;
+        return this.filename == 'empty' || this.filename == '' || this.filename == undefined || this.filename == null;
     }
 
     toString()

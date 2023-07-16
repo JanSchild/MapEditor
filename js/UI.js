@@ -5,6 +5,7 @@ class UI
         saveMap: document.getElementById('map-download'),
         singleTool: document.getElementById('tool-single'),
         fillTool: document.getElementById('tool-fill'),
+        eraserTool: document.getElementById('tool-eraser'),
         undo: document.getElementById('undo-button'),
         redo: document.getElementById('redo-button')
 

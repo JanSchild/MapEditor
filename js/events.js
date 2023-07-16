@@ -31,6 +31,7 @@ UI.filechooser.mapUpload.addEventListener('change', MapEditor.import);
 // TOOL
 UI.button.singleTool.addEventListener('change', changeTool);
 UI.button.fillTool.addEventListener('change', changeTool);
+UI.button.eraserTool.addEventListener('change', changeTool);
 
 function changeTool()
 {
@@ -43,6 +44,12 @@ function changeTool()
                 break;
             case "fill":
                 UI.canvas.map.style.cursor = 'copy';
+                break;
+            case "eraser":
+                UI.canvas.map.style.cursor = 'not-allowed';
+                break;
+            default:
+                UI.canvas.map.style.cursor = 'auto';
                 break;
         }
 }
@@ -65,12 +72,12 @@ function mapClick(event)
         let new_tile = TilePicker.currentTile;
         let old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
 
-        if(new_tile.isIdentical(old_tile)) return;
-
         let tool = document.querySelector("input[name='tool']:checked").value;
 
         switch(tool)
         {
+            case "eraser":
+                new_tile = Tile.emptyTile();
             case "single":
                 MapEditor.setTile(new_tile, map_x, map_y);  
 

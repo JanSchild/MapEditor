@@ -5,13 +5,15 @@ class History
 
     static tileChangeCollection = new Array();
 
-    static addToCollection(someChange)
+    static addToCollection(tileChange)
     {
-        History.tileChangeCollection.push(someChange);
+        if(tileChange.newTile.isIdentical(tileChange.oldTile)) return;
+        History.tileChangeCollection.push(tileChange);
     }
 
     static submitCollection()
     {
+        if(History.tileChangeCollection.length == 0) return;
         History.next = new Array();
         History.previous.push(History.tileChangeCollection);
         History.tileChangeCollection = new Array();
