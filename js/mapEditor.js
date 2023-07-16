@@ -57,7 +57,7 @@ class MapEditor
     {
         MapEditor.clearCanvas();
 
-        MapEditor.currentMap.layer.data.forEach((row, map_y) => 
+        MapEditor.currentMap.layer.tiles.forEach((row, map_y) => 
         {
             if(map_y >= MapEditor.currentMap.height) return;
 

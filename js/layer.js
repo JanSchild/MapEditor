@@ -2,18 +2,18 @@ class Layer
 {
     constructor(rows)
     {
-        this.data = new Array(); // TODO - rename to this.tiles
+        this.tiles = new Array(); // TODO - rename to this.tiles
         this.#expandToRows(rows);
     }
 
     #expandToRows(rows)
     {
-        while(this.data.length < rows) this.data.push(new Array());
+        while(this.tiles.length < rows) this.tiles.push(new Array());
     }
 
     #row(y)
     {
-        return this.data[y] ?? new Array();
+        return this.tiles[y] ?? new Array();
     }
 
     tile(x, y)
@@ -25,9 +25,9 @@ class Layer
     {
         this.#expandToRows(y + 1);
         if(tile != null)
-            this.data[y][x] = Object.assign(new Tile, tile);
+            this.tiles[y][x] = Object.assign(new Tile, tile);
         else
-            this.data[y][x] = Tile.emptyTile();;
+            this.tiles[y][x] = Tile.emptyTile();;
     }
 
     unsetTile(x, y)
@@ -40,7 +40,7 @@ class Layer
      */    
     convertDataToTiles()
     {
-        this.data.forEach((row, map_y) => 
+        this.tiles.forEach((row, map_y) => 
         {
             row.forEach((tile, map_x) =>
             {
