@@ -2,7 +2,7 @@ class Layer
 {
     constructor(rows)
     {
-        this.tiles = new Array(); // TODO - rename to this.tiles
+        this.tiles = new Array();
         this.#expandToRows(rows);
     }
 
