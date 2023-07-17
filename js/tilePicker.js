@@ -26,12 +26,12 @@ class TilePicker
         TilePicker.context.stroke();
     }
 
-    static change(event)
+    static change(event) // TODO: rename to changeTileset
     {
         TilePicker.show(event.target.value);
     }
 
-    static show(filename) 
+    static show(filename) // TODO: rename to showTileset
     {
         TilePicker.currentTile.filename = filename;
         TilePicker.image = TilePicker.images[filename];
@@ -58,7 +58,7 @@ class TilePicker
         TilePicker.drawSelector();
     }
 
-    static loadTilesets()
+    static loadTilesets() TODO: move to tileSet.js
     {
         TilePicker.filenames.forEach(filename => 
         {
@@ -74,7 +74,7 @@ class TilePicker
         });
     }
 
-    static generateDropdownMenu()
+    static generateDropdownMenu() // TODO: move to tileSet.js
     {
         TilePicker.filenames.forEach(filename => 
         {
