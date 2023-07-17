@@ -4,8 +4,8 @@ class TileChange
     {
         this.mapX = mapX;
         this.mapY = mapY;
-        this.oldTile = oldTile; // TODO: replace with Object.assign()
-        this.newTile = newTile;
+        this.oldTile = Object.assign(Tile.emptyTile(), oldTile);
+        this.newTile = Object.assign(Tile.emptyTile(), newTile);
         this.layer = layer;
     }
 }

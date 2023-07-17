@@ -58,7 +58,7 @@ class TilePicker
         TilePicker.drawSelector();
     }
 
-    static loadTilesets() TODO: move to tileSet.js
+    static loadTilesets() // TODO: move to tileSet.js
     {
         TilePicker.filenames.forEach(filename => 
         {
