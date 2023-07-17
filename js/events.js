@@ -1,6 +1,6 @@
 // TILESET
 UI.canvas.tileset.addEventListener('click', TilePicker.selectTile);
-UI.dropdown.tilesets.addEventListener('change', TilePicker.change);
+UI.dropdown.tilesets.addEventListener('change', TilePicker.changeTileset);
 
 // MAP
 UI.textfield.mapName.addEventListener('change', (event) =>

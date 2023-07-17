@@ -26,12 +26,12 @@ class TilePicker
         TilePicker.context.stroke();
     }
 
-    static change(event) // TODO: rename to changeTileset
+    static changeTileset(event)
     {
-        TilePicker.show(event.target.value);
+        TilePicker.showTileset(event.target.value);
     }
 
-    static show(filename) // TODO: rename to showTileset
+    static showTileset(filename)
     {
         TilePicker.currentTile.filename = filename;
         TilePicker.image = TilePicker.images[filename];
@@ -68,7 +68,7 @@ class TilePicker
             {
                 TilePicker.loadedFiles.add(filename);
                 if(filename == TilePicker.currentTile.filename)
-                    TilePicker.show(TilePicker.currentTile.filename);
+                    TilePicker.showTileset(TilePicker.currentTile.filename);
             });
             TilePicker.images[filename] = image;
         });
