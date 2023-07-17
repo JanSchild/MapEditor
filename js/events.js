@@ -81,7 +81,6 @@ function setTile(event)
                 new_tile = Tile.emptyTile();
             case "single":
                 MapEditor.setTile(new_tile, map_x, map_y);  
-
                 History.addToCollection(new TileChange(map_x, map_y, old_tile, new_tile));
                 break;
             case "fill":
