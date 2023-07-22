@@ -1,6 +1,39 @@
 // TILESET
-UI.canvas.tileset.addEventListener('click', TilePicker.selectTile);
 UI.dropdown.tilesets.addEventListener('change', TilePicker.changeTileset);
+
+// TILEPICKER
+// UI.canvas.tileset.addEventListener('click', TilePicker.selectTile);
+UI.canvas.tileset.addEventListener('mousedown', (event) => {
+        TilePicker.selectionStart = TilePicker.coordinatesFromPixels(event.offsetX, event.offsetY);
+        TilePicker.selectionEnd = TilePicker.coordinatesFromPixels(event.offsetX, event.offsetY);
+        TilePicker.drawSelector();
+
+        TilePicker.dragging = true;
+});
+UI.canvas.tileset.addEventListener('mousemove', (event) => {
+    if(TilePicker.dragging)
+    {
+        let selectionEnd = TilePicker.coordinatesFromPixels(event.offsetX, event.offsetY);
+        if(selectionEnd.x != TilePicker.selectionEnd.x || selectionEnd.y != TilePicker.selectionEnd.y)
+        {
+            TilePicker.selectionEnd = selectionEnd;
+            TilePicker.drawSelector();
+        }
+    }
+});
+document.addEventListener('mouseup', () => { 
+    let startX = TilePicker.selectionStart.x < TilePicker.selectionEnd.x ? TilePicker.selectionStart.x : TilePicker.selectionEnd.x;
+    let startY = TilePicker.selectionStart.y < TilePicker.selectionEnd.y ? TilePicker.selectionStart.y : TilePicker.selectionEnd.y;
+
+    let endX = TilePicker.selectionEnd.x > TilePicker.selectionStart.x ? TilePicker.selectionEnd.x : TilePicker.selectionStart.x;
+    let endY = TilePicker.selectionEnd.y > TilePicker.selectionStart.y ? TilePicker.selectionEnd.y : TilePicker.selectionStart.y;
+
+    TilePicker.selectionStart = { x: startX, y: startY };
+    TilePicker.selectionEnd = { x: endX, y: endY };
+
+    TilePicker.dragging = false; 
+});
+
 
 // MAP
 UI.textfield.mapName.addEventListener('change', (event) =>
@@ -71,20 +104,19 @@ function setTile(event)
         let map_x = parseInt(event.offsetX / Tileset.tileWidth);
         let map_y = parseInt(event.offsetY / Tileset.tileHeight);
         let new_tile = Object.assign(Tile.emptyTile(), TilePicker.currentTile);
-        let old_tile = MapEditor.currentMap.layer.tile(map_x, map_y);
 
         let tool = document.querySelector("input[name='tool']:checked").value;
 
         switch(tool)
         {
             case "eraser":
-                new_tile = Tile.emptyTile();
+                MapEditor.setTile(Tile.emptyTile(), map_x, map_y);
+                break;
             case "single":
-                MapEditor.setTile(new_tile, map_x, map_y);  
-                History.addToCollection(new TileChange(map_x, map_y, old_tile, new_tile));
+                MapEditor.setTiles(map_x, map_y);
                 break;
             case "fill":
-                MapEditor.flood(map_x, map_y, new_tile);
+                MapEditor.flood(map_x, map_y);
                 break;
         }
     }

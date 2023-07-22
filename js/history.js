@@ -28,7 +28,7 @@ class History
             History.next.unshift(lastChange);
             lastChange.forEach((tileChange) =>
             {
-                MapEditor.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY);
+                MapEditor.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY, false);
             });
         }
         History.updateButtons();
@@ -42,9 +42,17 @@ class History
             History.previous.push(nextChange);
             nextChange.forEach((tileChange) =>
             {
-                MapEditor.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY);
+                MapEditor.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY, false);
             });
         }
+        History.updateButtons();
+    }
+
+    static clear()
+    {
+        History.previous = new Array();
+        History.next = new Array();
+        History.tileChangeCollection = new Array();
         History.updateButtons();
     }
 

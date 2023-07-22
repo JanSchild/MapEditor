@@ -15,14 +15,31 @@ class MapEditor
         MapEditor.currentMap.layer.unsetTile(x, y);
     }
       
-    static setTile(newTile, x, y) 
+    static setTile(newTile, x, y, enable_history=true) 
     {
         if(!MapEditor.currentMap.coordinateExists(x, y)) return;
         if(MapEditor.currentMap.layer.tile(x, y).isIdentical(newTile)) return;
 
+        if(enable_history)
+            History.addToCollection(new TileChange(x, y, MapEditor.currentMap.layer.tile(x, y), newTile));
+
         MapEditor.clearTile(x, y);
         MapEditor.currentMap.layer.setTile(newTile, x, y);
         MapEditor.drawTile(newTile, x, y);
+    }
+
+    static setTiles(map_x, map_y) 
+    {
+        for(let x = TilePicker.selectionStart.x; x <= TilePicker.selectionEnd.x; x++)
+        {
+            for(let y = TilePicker.selectionStart.y; y <= TilePicker.selectionEnd.y; y++)
+            {
+                let newTile = new Tile(TilePicker.currentFilename, x, y);
+                let set_x = map_x + (x - TilePicker.selectionStart.x);
+                let set_y = map_y + (y - TilePicker.selectionStart.y);
+                MapEditor.setTile(newTile, set_x, set_y);
+            }
+        }
     }
 
     static drawTile(newTile, map_x, map_y)
@@ -71,13 +88,12 @@ class MapEditor
         });
     }
 
-    static flood(x, y, newTile)
+    static flood(x, y)
     {
         let tryFlood = function(x, y, startTile, newTile)
         {
             if(MapEditor.currentMap.coordinateExists(x, y) && MapEditor.currentMap.layer.tile(x, y).isIdentical(startTile))
             {
-                History.addToCollection(new TileChange(x, y, startTile, newTile));
                 MapEditor.setTile(newTile, x, y);
                 newFloodCenter(x, y, startTile, newTile);
             }
@@ -107,13 +123,14 @@ class MapEditor
             y = centerY;
             tryFlood(x, y, startTile, newTile);
         }
+
+        let newTile = new Tile(TilePicker.currentFilename, TilePicker.selectionStart.x, TilePicker.selectionStart.y);
     
         let startTile = MapEditor.currentMap.layer.tile(x, y);
 
         if(newTile.isIdentical(startTile)) return;
         
         MapEditor.setTile(newTile, x, y);
-        History.addToCollection(new TileChange(x, y, startTile, newTile));
         
         newFloodCenter(x, y, startTile, newTile);
 
@@ -145,6 +162,7 @@ class MapEditor
             { 
                 MapEditor.currentMap = GameMap.deserialize(reader.result);
                 MapEditor.drawMap();
+                History.clear();
             }
         }
     }

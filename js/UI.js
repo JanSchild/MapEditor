@@ -8,7 +8,6 @@ class UI
         eraserTool: document.getElementById('tool-eraser'),
         undo: document.getElementById('undo-button'),
         redo: document.getElementById('redo-button')
-
     };
 
     static textfield = 

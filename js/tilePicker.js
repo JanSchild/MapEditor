@@ -5,35 +5,65 @@ class TilePicker
     static filenames = new Set(['tilesets/floor.png', 'tilesets/forest.png', 'tilesets/forest_dead.png']);
     static loadedFiles = new Set();
 
-    static currentTile = new Tile(TilePicker.filenames.values().next().value, 0, 0);
+    static currentFilename = TilePicker.filenames.values().next().value;
+    static currentTile = new Tile(TilePicker.currentFilename, 0, 0); // TODO - remove
+
+    static selectionStart = { x: 0, y: 0 };
+    static selectionEnd = { x: 0, y: 0 };
+
+    static dragging = false;
 
     static image;
     static images = new Array();
 
-    static draw()
+    static drawTileset()
     {
+        TilePicker.context.clearRect(0, 0, UI.canvas.tileset.width, UI.canvas.tileset.height);
         TilePicker.context.drawImage(TilePicker.image, 0, 0);
     }
 
     static drawSelector()
     {
+        TilePicker.drawTileset();
+        
+        let startX = TilePicker.selectionStart.x < TilePicker.selectionEnd.x ? TilePicker.selectionStart.x : TilePicker.selectionEnd.x;
+        let startY = TilePicker.selectionStart.y < TilePicker.selectionEnd.y ? TilePicker.selectionStart.y : TilePicker.selectionEnd.y;
+
+        let endX = TilePicker.selectionEnd.x > TilePicker.selectionStart.x ? TilePicker.selectionEnd.x : TilePicker.selectionStart.x;
+        let endY = TilePicker.selectionEnd.y > TilePicker.selectionStart.y ? TilePicker.selectionEnd.y : TilePicker.selectionStart.y;
+
+        let selectionWidth = endX - startX + 1;
+        let selectionHeight = endY - startY + 1;
+
         TilePicker.context.beginPath();
-        TilePicker.context.rect(TilePicker.currentTile.x * Tileset.tileWidth, 
-                                TilePicker.currentTile.y * Tileset.tileHeight, 
-                                Tileset.tileWidth, Tileset.tileHeight);
+        TilePicker.context.rect(startX * Tileset.tileWidth, 
+                                startY * Tileset.tileHeight, 
+                                selectionWidth * Tileset.tileWidth, 
+                                selectionHeight * Tileset.tileHeight);
         TilePicker.context.closePath();
         TilePicker.context.strokeStyle = "black";
         TilePicker.context.stroke();
     }
 
+    static coordinatesFromPixels(x, y)
+    {
+        return {
+            x: parseInt(x / Tileset.tileWidth),
+            y: parseInt(y / Tileset.tileHeight)
+        }
+    }
+
     static changeTileset(event)
     {
+        TilePicker.selectionStart = { x: 0, y: 0 };
+        TilePicker.selectionEnd = { x: 0, y: 0 };
         TilePicker.showTileset(event.target.value);
     }
 
     static showTileset(filename)
     {
-        TilePicker.currentTile.filename = filename;
+        TilePicker.currentTile.filename = filename; // TODO - remove
+        TilePicker.currentFilename = filename;
         TilePicker.image = TilePicker.images[filename];
     
         UI.canvas.tileset.width = TilePicker.image.naturalWidth;
@@ -42,15 +72,13 @@ class TilePicker
         TilePicker.currentTile.x = 0;
         TilePicker.currentTile.y = 0;
         
-        TilePicker.draw();
+        TilePicker.drawTileset();
         TilePicker.drawSelector();
     }
 
     static selectTile(event)
     {
-        TilePicker.context.clearRect(0, 0, UI.canvas.tileset.width, UI.canvas.tileset.height);
-
-        TilePicker.draw();
+        TilePicker.drawTileset();
 
         TilePicker.currentTile.x = parseInt(event.offsetX / Tileset.tileWidth);
         TilePicker.currentTile.y = parseInt(event.offsetY / Tileset.tileHeight);
