@@ -8,6 +8,5 @@ A simple JavaScript based map editor.
  - fill tool
 
  Planned
- - picking multiple tiles at once
  - multilayer support
  - styling with Bootstrap
