@@ -9,8 +9,6 @@ class History
     {
         if(tileChange.newTile.isIdentical(tileChange.oldTile)) return;
         History.tileChangeCollection.push(tileChange);
-        console.log("Added to collection!");
-        console.log(this.tileChangeCollection);
     }
 
     static submitCollection()
