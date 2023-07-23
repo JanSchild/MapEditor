@@ -24,14 +24,13 @@ class History
 
     static undo()
     {
-        let lastChange = History.previous.pop();
-        if(lastChange != undefined)
+        let lastChanges = History.previous.pop();
+        if(lastChanges != undefined)
         {
-            History.next.unshift(lastChange);
-            // undo changes in reverse order
-            for(let i = lastChange.length - 1; i >= 0; i--)
+            History.next.unshift(lastChanges);
+            for(let i = lastChanges.length - 1; i >= 0; i--)
             {
-                let tileChange = lastChange[i];
+                let tileChange = lastChanges[i];
                 MapEditor.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY, false);
             }
         }
@@ -40,11 +39,11 @@ class History
 
     static redo()
     {
-        let nextChange = History.next.shift();
-        if(nextChange != undefined)
+        let nextChanges = History.next.shift();
+        if(nextChanges != undefined)
         {
-            History.previous.push(nextChange);
-            nextChange.forEach((tileChange) =>
+            History.previous.push(nextChanges);
+            nextChanges.forEach((tileChange) =>
             {
                 MapEditor.setTile(tileChange.newTile, tileChange.mapX, tileChange.mapY, false);
             });
