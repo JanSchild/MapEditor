@@ -103,7 +103,6 @@ function setTile(event)
     {
         let map_x = parseInt(event.offsetX / Tileset.tileWidth);
         let map_y = parseInt(event.offsetY / Tileset.tileHeight);
-        let new_tile = Object.assign(Tile.emptyTile(), TilePicker.currentTile);
 
         let tool = document.querySelector("input[name='tool']:checked").value;
 
