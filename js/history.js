@@ -9,6 +9,8 @@ class History
     {
         if(tileChange.newTile.isIdentical(tileChange.oldTile)) return;
         History.tileChangeCollection.push(tileChange);
+        console.log("Added to collection!");
+        console.log(this.tileChangeCollection);
     }
 
     static submitCollection()
@@ -26,10 +28,12 @@ class History
         if(lastChange != undefined)
         {
             History.next.unshift(lastChange);
-            lastChange.forEach((tileChange) =>
+            // undo changes in reverse order
+            for(let i = lastChange.length - 1; i >= 0; i--)
             {
+                let tileChange = lastChange[i];
                 MapEditor.setTile(tileChange.oldTile, tileChange.mapX, tileChange.mapY, false);
-            });
+            }
         }
         History.updateButtons();
     }
